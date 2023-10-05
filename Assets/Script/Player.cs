@@ -17,10 +17,14 @@ public class Player : Character
     private float initiMana = 50;
 
     [SerializeField]
-    private GameObject[] spellPrefab;
+    private Transform[] exitPoints;
+
+    private int exitIndex = 2;
 
     [SerializeField]
-    private Transform firepoint;
+    private GameObject[] spellPrefab;
+
+    
 
     protected override void Start()
     {
@@ -51,6 +55,23 @@ public class Player : Character
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.y = Input.GetAxisRaw("Vertical");
 
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            exitIndex = 0;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            exitIndex = 3;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            exitIndex = 2;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            exitIndex = 1;
+        }
 
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -91,16 +112,14 @@ public class Player : Character
             StopAttack();
         }
 
-
     }
 
     public void CastSpell()
     {
         Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
 
-        Spell spell = Instantiate(spellPrefab[0], firepoint.position, Quaternion.identity).GetComponent<Spell>();
+        Spell spell = Instantiate(spellPrefab[0], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
         spell.SetUp(temp, ChooseSpellDirection());
-
 
     }
 
