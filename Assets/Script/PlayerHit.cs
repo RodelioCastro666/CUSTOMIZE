@@ -23,7 +23,7 @@ public class PlayerHit : MonoBehaviour
         if (other.CompareTag("breakable"))
         {
             other.GetComponent<Pot>().Smash();
-            Debug.Log("zone");
+            
         }
     }
 }

@@ -24,7 +24,7 @@ public class Player : Character
     [SerializeField]
     private GameObject[] spellPrefab;
 
-    
+    private Vector3 min, max;
 
     protected override void Start()
     {
@@ -39,7 +39,8 @@ public class Player : Character
 
         GetInput();
 
-
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x),
+            Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
 
         base.Update();
 
@@ -91,6 +92,16 @@ public class Player : Character
         {
             StartCoroutine(Attack());
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(AttackSword());
+        }
+    }
+
+    public void SetLimits(Vector3 min,Vector3 max)
+    {
+        this.min = min;
+        this.max = max;
     }
 
     private void MoveCharacter()
@@ -120,6 +131,28 @@ public class Player : Character
 
         Spell spell = Instantiate(spellPrefab[0], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
         spell.SetUp(temp, ChooseSpellDirection());
+
+    }
+
+    private IEnumerator AttackSword()
+    {
+        if (!isAttackingSword)
+        {
+            isAttackingSword = true;
+            myAnimator.SetBool("attackSword", true);
+
+            yield return new WaitForSeconds(1);
+            Debug.Log("kkk");
+
+
+            //SwordSlash();
+
+            StopAttackSword();
+        }
+    }
+
+    public void SwordSlash()
+    {
 
     }
 

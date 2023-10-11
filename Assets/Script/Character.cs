@@ -17,6 +17,8 @@ public abstract class Character : MonoBehaviour
 
     protected bool isAttacking = false;
 
+    protected bool isAttackingSword = false;
+
     public bool Ismoving
     {
         get
@@ -58,6 +60,11 @@ public abstract class Character : MonoBehaviour
 
 
         }
+        else if (isAttackingSword)
+        {
+            ActivateLayer("AttackSword");
+            direction = Vector2.zero;
+        }
         else if (Ismoving)
         {
 
@@ -66,7 +73,8 @@ public abstract class Character : MonoBehaviour
             myAnimator.SetFloat("y", direction.y);
             myAnimator.SetFloat("x", direction.x);
 
-            StopAttack();
+            //StopAttack();
+            StopAttackSword();
 
         }
         else
@@ -93,6 +101,17 @@ public abstract class Character : MonoBehaviour
         // StopCoroutine(attackRoutine);
         isAttacking = false;
         myAnimator.SetBool("attack", isAttacking);
+
+
+    }
+
+    public void StopAttackSword()
+    {
+
+
+        // StopCoroutine(attackRoutine);
+        isAttackingSword = false;
+        myAnimator.SetBool("attackSword", isAttackingSword);
 
 
     }
