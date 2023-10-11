@@ -44,6 +44,7 @@ public class Player : Character
 
         base.Update();
 
+        
     }
 
 
@@ -141,24 +142,36 @@ public class Player : Character
             isAttackingSword = true;
             myAnimator.SetBool("attackSword", true);
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.3f);
             Debug.Log("kkk");
 
 
-            //SwordSlash();
+            SwordSlash();
 
             StopAttackSword();
+
+            
         }
     }
 
+    
     public void SwordSlash()
     {
+        Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
 
-    }
+        SwordSlash swordSlash = Instantiate(spellPrefab[1], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SwordSlash>();
+        swordSlash.SetUp(temp, ChooseSlashDirection());
+    }   
 
     Vector3 ChooseSpellDirection()
     {
         float temp = Mathf.Atan2(myAnimator.GetFloat("y"), myAnimator.GetFloat("x")) * Mathf.Rad2Deg;
-        return new Vector3(0, 0, temp + 180);
+        return new Vector3(0, 0, temp+180);
+    }
+
+    Vector3 ChooseSlashDirection()
+    {
+        float temp = Mathf.Atan2(myAnimator.GetFloat("y"), myAnimator.GetFloat("x")) * Mathf.Rad2Deg;
+        return new Vector3(0, 0, temp);
     }
 }

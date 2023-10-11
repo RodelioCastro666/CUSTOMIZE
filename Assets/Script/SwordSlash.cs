@@ -7,7 +7,7 @@ public class SwordSlash : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private bool hit;
+    
 
     private Animator anim;
     // private BoxCollider2D boxCollider;
@@ -27,8 +27,8 @@ public class SwordSlash : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hit = true;
-      //  anim.SetTrigger("explode");
+        
+        anim.SetTrigger("hit");
         myrigidbody.velocity = Vector2.zero;
     }
 
@@ -43,4 +43,6 @@ public class SwordSlash : MonoBehaviour
     {
 
     }
+
+    
 }
