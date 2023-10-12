@@ -27,9 +27,13 @@ public class SwordSlash : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            anim.SetTrigger("hit");
+            myrigidbody.velocity = Vector2.zero;
+        }
         
-        anim.SetTrigger("hit");
-        myrigidbody.velocity = Vector2.zero;
+     
     }
 
     public void SetUp(Vector2 velocity, Vector3 direction)

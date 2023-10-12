@@ -130,7 +130,7 @@ public class Player : Character
     {
         Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
 
-        Spell spell = Instantiate(spellPrefab[0], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
+        Spell spell = Instantiate(spellPrefab[0], transform.position, Quaternion.identity).GetComponent<Spell>();
         spell.SetUp(temp, ChooseSpellDirection());
 
     }

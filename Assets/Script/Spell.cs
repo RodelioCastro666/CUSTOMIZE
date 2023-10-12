@@ -7,7 +7,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private bool hit;
+
 
     private Animator anim;
     // private BoxCollider2D boxCollider;
@@ -27,9 +27,15 @@ public class Spell : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hit = true;
-        anim.SetTrigger("explode");
-        myrigidbody.velocity = Vector2.zero;
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            
+            anim.SetTrigger("explode");
+            myrigidbody.velocity = Vector2.zero;
+        }
+        
+
+       
     }
 
     public void SetUp(Vector2 velocity, Vector3 direction)
