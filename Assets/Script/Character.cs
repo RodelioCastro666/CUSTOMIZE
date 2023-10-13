@@ -103,19 +103,19 @@ public abstract class Character : MonoBehaviour
         myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
     }
 
-    public void StopAttack()
+    public virtual void StopAttack()
     {
         isAttacking = false;
         myAnimator.SetBool("attack", isAttacking);
     }
 
-    public void StopAttackSword()
+    public virtual void StopAttackSword()
     {
         isAttackingSword = false;
         myAnimator.SetBool("attackSword", isAttackingSword);
     }
 
-    public void StopAttackRasen()
+    public virtual void StopAttackRasen()
     {
         // StopCoroutine(attackRoutine);
         isAttackingRasen = false;

@@ -456,7 +456,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Untitled30_20230925182019 (1)_15
+      name: Lock
       rect:
         serializedVersion: 2
         x: 0
@@ -573,12 +573,12 @@ TextureImporter:
     nameFileIdTable:
       Attack lighblue: -1717579215
       Frame Black: -2139950378
+      Lock: -2117707538
       Red Frame: 2048303577
       Untitled30_20230925182019 (1)_0: 870023422
       Untitled30_20230925182019 (1)_10: -1635493775
       Untitled30_20230925182019 (1)_12: 1482369036
       Untitled30_20230925182019 (1)_14: 1268323567
-      Untitled30_20230925182019 (1)_15: -2117707538
       Untitled30_20230925182019 (1)_19: -2038576192
       Untitled30_20230925182019 (1)_2: 5618935
       Untitled30_20230925182019 (1)_3: 1469998909

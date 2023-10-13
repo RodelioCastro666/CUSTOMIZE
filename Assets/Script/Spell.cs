@@ -1,54 +1,46 @@
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Spell : MonoBehaviour
+[Serializable]
+public class Spell
 {
+    [SerializeField]
+    private string name;
+
+    [SerializeField]
+    private int damage;
+
+    [SerializeField]
+    private Sprite icon;
+
     [SerializeField]
     private float speed;
 
-
-
-    private Animator anim;
-    // private BoxCollider2D boxCollider;
+    [SerializeField]
+    private float castTime;
 
     [SerializeField]
-    private Rigidbody2D myrigidbody;
+    private GameObject spellPrefab;
 
-    public Transform Mytarget { get; set; }
+    [SerializeField]
+    private Color barColor;
 
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-        // boxCollider = GetComponent<BoxCollider2D>();
-        myrigidbody = GetComponent<Rigidbody2D>();
+    public string MyName { get => name; set => name = value; }
 
-    }
+    public int MyDamage { get => damage; set => damage = value; }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Hitbox"))
-        {
-            
-            anim.SetTrigger("explode");
-            myrigidbody.velocity = Vector2.zero;
-        }
-        
+    public Sprite MyIcon { get => icon; set => icon = value; }
 
-       
-    }
+    public float MySpeed { get => speed; set => speed = value; }
 
-    public void SetUp(Vector2 velocity, Vector3 direction)
-    {
-        myrigidbody.velocity = velocity.normalized * speed;
-        transform.rotation = Quaternion.Euler(direction);
-        
-    }
+    public float MyCastTime { get => castTime; set => castTime = value; }
 
-    public void Deactivate()
-    {
-       
-    }
+    public GameObject MySpellPrefab { get => spellPrefab; set => spellPrefab = value; }
 
-
+    public Color MyBarColor { get => barColor; set => barColor = value; }
 }

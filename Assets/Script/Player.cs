@@ -21,13 +21,13 @@ public class Player : Character
 
     private int exitIndex = 2;
 
-    [SerializeField]
-    private GameObject[] spellPrefab;
+    private SpellBook spellBook;
 
     private Vector3 min, max;
 
     protected override void Start()
     {
+        spellBook = GetComponent<SpellBook>();
         health.Initialized(initiHealth, initiHealth);
         mana.Initialized(initiMana, initiMana);
         base.Start();
@@ -107,41 +107,44 @@ public class Player : Character
 
     private IEnumerator Attack()
     {
+        Spell newSpell = spellBook.CastSpell(0);
+
         if (!isAttacking)
         {
             isAttacking = true;
             myAnimator.SetBool("attack", true);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(newSpell.MyCastTime);
 
-            CastSpell();
+            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+
+            FireSpell spell = Instantiate(newSpell.MySpellPrefab, transform.position, Quaternion.identity).GetComponent<FireSpell>();
+            spell.SetUp(temp, ChooseSpellDirection());
 
             StopAttack();
         }
 
     }
 
-    public void CastSpell()
-    {
-        Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
-
-        Spell spell = Instantiate(spellPrefab[0], transform.position, Quaternion.identity).GetComponent<Spell>();
-        spell.SetUp(temp, ChooseSpellDirection());
-
-    }
+   
 
     private IEnumerator AttackSword()
     {
+        Spell newSpell = spellBook.CastSpell(1);
+
         if (!isAttackingSword)
         {
             isAttackingSword = true;
             myAnimator.SetBool("attackSword", true);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(newSpell.MyCastTime);
             Debug.Log("kkk");
 
 
-            SwordSlash();
+            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+
+            SwordSlash swordSlash = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SwordSlash>();
+            swordSlash.SetUp(temp, ChooseSlashDirection());
 
             StopAttackSword();
 
@@ -151,16 +154,19 @@ public class Player : Character
 
     private IEnumerator AttackRasen()
     {
+        Spell newSpell = spellBook.CastSpell(2);
+
         if (!isAttackingRasen)
         {
             isAttackingRasen = true;
             myAnimator.SetBool("attack2", true);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(newSpell.MyCastTime);
 
+            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
 
-
-            Rasen();
+            RasenSpell rasenSpell = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<RasenSpell>();
+            rasenSpell.SetUp(temp, ChooseSlashDirection());
 
             StopAttackRasen();
 
@@ -168,22 +174,7 @@ public class Player : Character
         }
     }
 
-    public void Rasen()
-    {
-        Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
-
-        RasenSpell rasenSpell= Instantiate(spellPrefab[2], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<RasenSpell>();
-        rasenSpell.SetUp(temp, ChooseSlashDirection());
-    }
-
-
-    public void SwordSlash()
-    {
-        Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
-
-        SwordSlash swordSlash = Instantiate(spellPrefab[1], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SwordSlash>();
-        swordSlash.SetUp(temp, ChooseSlashDirection());
-    }   
+        
 
     Vector3 ChooseSpellDirection()
     {
@@ -209,5 +200,23 @@ public class Player : Character
     public void CastFire()
     {
         StartCoroutine(Attack());
+    }
+
+    public override void StopAttack()
+    {
+        spellBook.StopCasting();
+        base.StopAttack();
+    }
+
+    public override void StopAttackRasen()
+    {
+        spellBook.StopCasting();
+        base.StopAttackRasen();
+    }
+
+    public override void StopAttackSword()
+    {
+        spellBook.StopCasting();
+        base.StopAttackSword();
     }
 }
