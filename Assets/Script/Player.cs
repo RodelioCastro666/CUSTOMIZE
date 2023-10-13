@@ -10,7 +10,7 @@ public class Player : Character
     [SerializeField]
     private Stat mana;
 
-    private GameObject A;
+    
 
     private float initiHealth = 100;
 
@@ -89,14 +89,9 @@ public class Player : Character
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(Attack());
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            StartCoroutine(AttackSword());
-        }
+        
+        
+        
     }
 
     public void SetLimits(Vector3 min,Vector3 max)
@@ -154,7 +149,34 @@ public class Player : Character
         }
     }
 
-    
+    private IEnumerator AttackRasen()
+    {
+        if (!isAttackingRasen)
+        {
+            isAttackingRasen = true;
+            myAnimator.SetBool("attack2", true);
+
+            yield return new WaitForSeconds(0.3f);
+
+
+
+            Rasen();
+
+            StopAttackRasen();
+
+
+        }
+    }
+
+    public void Rasen()
+    {
+        Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+
+        RasenSpell rasenSpell= Instantiate(spellPrefab[2], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<RasenSpell>();
+        rasenSpell.SetUp(temp, ChooseSlashDirection());
+    }
+
+
     public void SwordSlash()
     {
         Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
@@ -173,5 +195,19 @@ public class Player : Character
     {
         float temp = Mathf.Atan2(myAnimator.GetFloat("y"), myAnimator.GetFloat("x")) * Mathf.Rad2Deg;
         return new Vector3(0, 0, temp);
+    }
+
+    public void CastRasen()
+    {
+        StartCoroutine(AttackRasen());
+    }
+
+    public void CastSword()
+    {
+        StartCoroutine(AttackSword());
+    }
+    public void CastFire()
+    {
+        StartCoroutine(Attack());
     }
 }
