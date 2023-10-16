@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField]
-    private Stat health;
+   
 
     [SerializeField]
     private Stat mana;
 
     
 
-    private float initiHealth = 100;
+    
 
     private float initiMana = 50;
 
@@ -28,7 +27,7 @@ public class Player : Character
     protected override void Start()
     {
         spellBook = GetComponent<SpellBook>();
-        health.Initialized(initiHealth, initiHealth);
+        
         mana.Initialized(initiMana, initiMana);
         base.Start();
     }
@@ -120,6 +119,7 @@ public class Player : Character
 
             FireSpell spell = Instantiate(newSpell.MySpellPrefab, transform.position, Quaternion.identity).GetComponent<FireSpell>();
             spell.SetUp(temp, ChooseSpellDirection());
+            spell.Initialize(newSpell.MyDamage);
 
             StopAttack();
         }
@@ -145,6 +145,7 @@ public class Player : Character
 
             SwordSlash swordSlash = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SwordSlash>();
             swordSlash.SetUp(temp, ChooseSlashDirection());
+            swordSlash.Initialize(newSpell.MyDamage);
 
             StopAttackSword();
 
@@ -167,6 +168,7 @@ public class Player : Character
 
             RasenSpell rasenSpell = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<RasenSpell>();
             rasenSpell.SetUp(temp, ChooseSlashDirection());
+            rasenSpell.Initialize(newSpell.MyDamage);
 
             StopAttackRasen();
 

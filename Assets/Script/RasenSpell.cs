@@ -8,7 +8,8 @@ public class RasenSpell : MonoBehaviour
     private float speed;
 
     private Animator anim;
-   
+
+    private int rasendamage;
 
     [SerializeField]
     private Rigidbody2D myrigidbody;
@@ -23,10 +24,16 @@ public class RasenSpell : MonoBehaviour
 
     }
 
+    public void Initialize(int damage)
+    {
+        this.rasendamage = damage;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Hitbox"))
         {
+            collision.GetComponentInParent<Enemy>().TakeDamage(rasendamage);
             anim.SetTrigger("rasenhit");
             myrigidbody.velocity = Vector2.zero;
         }

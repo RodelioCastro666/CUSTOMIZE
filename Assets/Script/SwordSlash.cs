@@ -7,7 +7,7 @@ public class SwordSlash : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    
+    private int sworddamage;
 
     private Animator anim;
     // private BoxCollider2D boxCollider;
@@ -25,10 +25,16 @@ public class SwordSlash : MonoBehaviour
 
     }
 
+    public void Initialize(int damage)
+    {
+        this.sworddamage = damage;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Hitbox"))
         {
+            collision.GetComponentInParent<Enemy>().TakeDamage(sworddamage);
             anim.SetTrigger("hit");
             myrigidbody.velocity = Vector2.zero;
         }

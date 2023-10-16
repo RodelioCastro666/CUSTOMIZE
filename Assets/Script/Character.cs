@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
     protected float speed;
+
+    [SerializeField]
+    private float initiHealth;
 
     protected Vector2 direction;
 
@@ -14,6 +19,12 @@ public abstract class Character : MonoBehaviour
     private Rigidbody2D myRigidbody2D;
 
     protected Coroutine attackRoutine;
+
+    [SerializeField]
+    protected Stat health;
+
+    [SerializeField]
+    protected Transform hitBox;
 
     protected bool isAttacking = false;
 
@@ -34,6 +45,8 @@ public abstract class Character : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        health.Initialized(initiHealth, initiHealth);
+
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
     }
@@ -122,6 +135,14 @@ public abstract class Character : MonoBehaviour
         myAnimator.SetBool("attack2", isAttackingRasen);
     }
 
+    public virtual void TakeDamage(float damage)
+    {
+        health.MyCurrentValue -= damage;
 
+        if(health.MyCurrentValue <= 0)
+        {
+            myAnimator.SetTrigger("die");
+        }
+    }
 
 }
