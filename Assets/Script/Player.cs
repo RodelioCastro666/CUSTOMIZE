@@ -11,8 +11,6 @@ public class Player : Character
 
     
 
-    
-
     private float initiMana = 50;
 
     [SerializeField]
@@ -83,13 +81,7 @@ public class Player : Character
         {
             health.MyCurrentValue += 10;
             mana.MyCurrentValue += 10;
-        }
-
-
-
-
-        
-        
+        }      
         
     }
 
@@ -99,10 +91,7 @@ public class Player : Character
         this.max = max;
     }
 
-    private void MoveCharacter()
-    {
-
-    }
+   
 
     private IEnumerator Attack()
     {
@@ -204,21 +193,30 @@ public class Player : Character
         StartCoroutine(Attack());
     }
 
-    public override void StopAttack()
+    public virtual void StopAttack()
     {
         spellBook.StopCasting();
-        base.StopAttack();
+
+        isAttacking = false;
+        myAnimator.SetBool("attack", isAttacking);
     }
 
-    public override void StopAttackRasen()
+    public virtual void StopAttackSword()
     {
         spellBook.StopCasting();
-        base.StopAttackRasen();
+
+        isAttackingSword = false;
+        myAnimator.SetBool("attackSword", isAttackingSword);
     }
 
-    public override void StopAttackSword()
+    public virtual void StopAttackRasen()
     {
         spellBook.StopCasting();
-        base.StopAttackSword();
+
+        // StopCoroutine(attackRoutine);
+        isAttackingRasen = false;
+        myAnimator.SetBool("attack2", isAttackingRasen);
     }
+
+    
 }

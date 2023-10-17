@@ -5,6 +5,23 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    private static UiManager instance;
+
+    public static UiManager MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<UiManager>();
+            }
+
+            return instance;
+        }
+    }
+
+   
+
     [SerializeField]
     private Button[] actionButton;
 

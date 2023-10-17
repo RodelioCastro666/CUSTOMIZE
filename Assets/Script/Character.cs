@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField]
-    protected float speed;
+    private float speed;
 
     [SerializeField]
     private float initiHealth;
@@ -22,6 +22,11 @@ public abstract class Character : MonoBehaviour
 
     [SerializeField]
     protected Stat health;
+
+    public Stat MyHealth
+    {
+        get { return health; }
+    }
 
     [SerializeField]
     protected Transform hitBox;
@@ -38,9 +43,13 @@ public abstract class Character : MonoBehaviour
     {
         get
         {
-            return direction.x != 0 || direction.y != 0;
+            return Direction.x != 0 || Direction.y != 0;
         }
     }
+
+    public Vector2 Direction { get => direction; set => direction = value; }
+
+    public float Speed { get => speed; set => speed = value; }
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -55,6 +64,7 @@ public abstract class Character : MonoBehaviour
     protected virtual void Update()
     {
         HandleLayers();
+
     }
 
     private void FixedUpdate()
@@ -64,7 +74,9 @@ public abstract class Character : MonoBehaviour
 
     public void Move()
     {
-        myRigidbody2D.velocity = direction.normalized * speed;
+       
+
+        myRigidbody2D.velocity = Direction.normalized * Speed;
     }
 
     public void HandleLayers()
@@ -73,27 +85,27 @@ public abstract class Character : MonoBehaviour
         if (isAttacking)
         {
             ActivateLayer("Attack");
-            direction = Vector2.zero;
+            Direction = Vector2.zero;
 
 
         }
         else if (isAttackingRasen)
         {
             ActivateLayer("Attack2");
-            direction = Vector2.zero;
+            Direction = Vector2.zero;
         }
         else if (isAttackingSword)
         {
             ActivateLayer("AttackSword");
-            direction = Vector2.zero;
+            Direction = Vector2.zero;
         }
         else if (Ismoving)
         {
 
             ActivateLayer("Walk");
 
-            myAnimator.SetFloat("y", direction.y);
-            myAnimator.SetFloat("x", direction.x);
+            myAnimator.SetFloat("y", Direction.y);
+            myAnimator.SetFloat("x", Direction.x);
 
             //StopAttack();
             StopAttackSword();
