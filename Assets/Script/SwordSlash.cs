@@ -12,6 +12,8 @@ public class SwordSlash : MonoBehaviour
     private Animator anim;
     // private BoxCollider2D boxCollider;
 
+    private Transform source;
+
     [SerializeField]
     private Rigidbody2D myrigidbody;
 
@@ -25,16 +27,18 @@ public class SwordSlash : MonoBehaviour
 
     }
 
-    public void Initialize(int damage)
+    public void Initialize(int damage, Transform source)
     {
         this.sworddamage = damage;
+        this.source = source;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hitbox"))
         {
-            collision.GetComponentInParent<Enemy>().TakeDamage(sworddamage);
+            Character c = collision.GetComponentInParent<Character>();
+            c.TakeDamage(sworddamage, source);
             anim.SetTrigger("hit");
             myrigidbody.velocity = Vector2.zero;
         }

@@ -48,3 +48,6 @@ TagManager:
   - name: Obstacle
     uniqueID: 3812858461
     locked: 0
+  - name: UI
+    uniqueID: 3562482265
+    locked: 0

@@ -14,7 +14,9 @@ public abstract class Character : MonoBehaviour
 
     protected Vector2 direction;
 
-    protected Animator myAnimator;
+    public Transform MyTarget { get; set; }
+
+    public Animator MyAnimator { get; set; }
 
     private Rigidbody2D myRigidbody2D;
 
@@ -31,11 +33,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Transform hitBox;
 
-    protected bool isAttacking = false;
+    
 
-    protected bool isAttackingSword = false;
-
-    protected bool isAttackingRasen = false;
+    public bool IsAttacking { get; set; }
+    public bool IsAttackingSword { get; set; }
+    public bool IsAttackingRasen { get; set; }
 
 
 
@@ -51,13 +53,21 @@ public abstract class Character : MonoBehaviour
 
     public float Speed { get => speed; set => speed = value; }
 
+    public bool IsAlive 
+    {
+        get
+        {
+            return health.MyCurrentValue > 0;
+        }
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         health.Initialized(initiHealth, initiHealth);
 
         myRigidbody2D = GetComponent<Rigidbody2D>();
-        myAnimator = GetComponent<Animator>();
+        MyAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -70,90 +80,107 @@ public abstract class Character : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
+
     }
 
     public void Move()
     {
-       
+        if (IsAlive)
+        {
+            myRigidbody2D.velocity = Direction.normalized * Speed;
+        }
 
-        myRigidbody2D.velocity = Direction.normalized * Speed;
+       
     }
 
     public void HandleLayers()
     {
-
-        if (isAttacking)
+        if (IsAlive)
         {
-            ActivateLayer("Attack");
-            Direction = Vector2.zero;
+            if (IsAttacking)
+            {
+                ActivateLayer("Attack");
+                Direction = Vector2.zero;
 
 
-        }
-        else if (isAttackingRasen)
-        {
-            ActivateLayer("Attack2");
-            Direction = Vector2.zero;
-        }
-        else if (isAttackingSword)
-        {
-            ActivateLayer("AttackSword");
-            Direction = Vector2.zero;
-        }
-        else if (Ismoving)
-        {
+            }
+            else if (IsAttackingRasen)
+            {
+                ActivateLayer("Attack2");
+                Direction = Vector2.zero;
+            }
+            else if (IsAttackingSword)
+            {
+                ActivateLayer("AttackSword");
+                Direction = Vector2.zero;
+            }
+            else if (Ismoving)
+            {
 
-            ActivateLayer("Walk");
+                ActivateLayer("Walk");
 
-            myAnimator.SetFloat("y", Direction.y);
-            myAnimator.SetFloat("x", Direction.x);
+                MyAnimator.SetFloat("y", Direction.y);
+                MyAnimator.SetFloat("x", Direction.x);
 
-            //StopAttack();
-            StopAttackSword();
+                //StopAttack();
+                //StopAttackSword();
 
+            }
+            else
+            {
+                ActivateLayer("Idle");
+            }
         }
         else
         {
-            ActivateLayer("Idle");
+            ActivateLayer("Death");
         }
+
+        
     }
 
 
     public void ActivateLayer(string layerName)
     {
-        for (int i = 0; i < myAnimator.layerCount; i++)
+        for (int i = 0; i < MyAnimator.layerCount; i++)
         {
-            myAnimator.SetLayerWeight(i, 0);
+            MyAnimator.SetLayerWeight(i, 0);
         }
 
-        myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
+        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
     }
 
     public virtual void StopAttack()
     {
-        isAttacking = false;
-        myAnimator.SetBool("attack", isAttacking);
+        IsAttacking = false;
+        MyAnimator.SetBool("attack", IsAttacking);
     }
 
     public virtual void StopAttackSword()
     {
-        isAttackingSword = false;
-        myAnimator.SetBool("attackSword", isAttackingSword);
+        IsAttackingSword = false;
+        MyAnimator.SetBool("attackSword", IsAttackingSword);
     }
 
     public virtual void StopAttackRasen()
     {
         // StopCoroutine(attackRoutine);
-        isAttackingRasen = false;
-        myAnimator.SetBool("attack2", isAttackingRasen);
+        IsAttackingRasen = false;
+        MyAnimator.SetBool("attack2", IsAttackingRasen);
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, Transform source)
     {
+        
+
         health.MyCurrentValue -= damage;
 
         if(health.MyCurrentValue <= 0)
         {
-            myAnimator.SetTrigger("die");
+            Direction = Vector2.zero;
+            myRigidbody2D.velocity = Direction;
+            MyAnimator.SetTrigger("die");
         }
     }
 

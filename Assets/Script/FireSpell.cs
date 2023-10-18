@@ -12,6 +12,8 @@ public class FireSpell : MonoBehaviour
     private Animator anim;
     // private BoxCollider2D boxCollider;
 
+    private Transform source;
+
     [SerializeField]
     private Rigidbody2D myrigidbody;
 
@@ -25,16 +27,18 @@ public class FireSpell : MonoBehaviour
 
     }
 
-    public void Initialize(int damage)
+    public void Initialize(int damage, Transform source)
     {
         this.firedamage = damage;
+        this.source = source;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Hitbox"))
         {
-            collision.GetComponentInParent<Enemy>().TakeDamage(firedamage);
+            Character c = collision.GetComponentInParent<Character>();
+            c.TakeDamage(firedamage, source);
             anim.SetTrigger("explode");
             myrigidbody.velocity = Vector2.zero;
         }

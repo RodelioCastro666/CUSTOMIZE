@@ -11,6 +11,8 @@ public class RasenSpell : MonoBehaviour
 
     private int rasendamage;
 
+    private Transform source;
+
     [SerializeField]
     private Rigidbody2D myrigidbody;
 
@@ -24,16 +26,18 @@ public class RasenSpell : MonoBehaviour
 
     }
 
-    public void Initialize(int damage)
+    public void Initialize(int damage, Transform source)
     {
         this.rasendamage = damage;
+        this.source = source;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hitbox"))
         {
-            collision.GetComponentInParent<Enemy>().TakeDamage(rasendamage);
+            Character c = collision.GetComponentInParent<Character>();
+            c.TakeDamage(rasendamage, source);
             anim.SetTrigger("rasenhit");
             myrigidbody.velocity = Vector2.zero;
         }

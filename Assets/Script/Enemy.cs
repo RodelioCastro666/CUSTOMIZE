@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void HealthChanged(float health);
+
+public delegate void CharacterRemoved();
+
 public class Enemy : NPC
 {
     [SerializeField]
@@ -9,26 +13,64 @@ public class Enemy : NPC
 
     private IState currentState;
 
-    private Transform target;
+    public event HealthChanged healthChanged;
+
+    public event CharacterRemoved characterRemoved;
+
+    [SerializeField]
+    private float initAggroRange;
+
+    public float MyAggroRange { get; set; }
+
+    public bool InRange
+    {
+        get
+        {
+            return Vector2.Distance(transform.position, MyTarget.position) < MyAggroRange;
+        }
+    }
+
+
+    public float MyAttackTime { get; set; }
+
+    public Vector3 MyStartPosition { get; set; }
 
     public float MyAttackRange { get; set; }
 
-    public Transform Target { get => target; set => target = value; }
+    
 
     protected void Awake()
     {
-        MyAttackRange = 1;
+        MyStartPosition = transform.position;
+        MyAggroRange = initAggroRange;
+        MyAttackRange = 0.5f;
         ChangeState(new IdleState());
     }
 
     protected override void Update()
     {
-        currentState.Update();
+        if (IsAlive)
+        {
+            if (!IsAttacking)
+            {
+                MyAttackTime += Time.deltaTime;
+            }
+
+            currentState.Update();
+
+            
+        }
 
         base.Update();
     }
 
-   
+    public void OnHealthChanged(float health)
+    {
+        if (healthChanged != null)
+        {
+            healthChanged(health);
+        }
+    }
 
     public void ChangeState(IState newState)
     {
@@ -40,5 +82,38 @@ public class Enemy : NPC
         currentState = newState;
 
         currentState.Enter(this);
+    }
+
+    public override void TakeDamage(float damage, Transform source)
+    {
+        if(!(currentState is EvadeState))
+        {
+            SetTarget(source);
+
+            base.TakeDamage(damage, source);
+
+            OnHealthChanged(health.MyCurrentValue);
+        }
+
+       
+    }
+
+    public void SetTarget(Transform target)
+    {
+        if(MyTarget == null && !(currentState is EvadeState))
+        {
+            float distance = Vector2.Distance(transform.position, target.position);
+            MyAggroRange = initAggroRange;
+            MyAggroRange += distance;
+            MyTarget = target;
+        }
+    }
+
+    public void Reset()
+    {
+        this.MyTarget = null;
+        this.MyAggroRange = initAggroRange;
+        this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxValue;
+        OnHealthChanged(health.MyCurrentValue);
     }
 }

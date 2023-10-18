@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
-   
+    //[SerializeField]
+    //private FixedJoystick JoyStick;
 
     [SerializeField]
     private Stat mana;
@@ -42,7 +43,10 @@ public class Player : Character
         base.Update();
 
         
+
     }
+
+    
 
 
 
@@ -50,9 +54,15 @@ public class Player : Character
     {
         direction = Vector2.zero;
 
+        
+
 
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.y = Input.GetAxisRaw("Vertical");
+
+
+        //direction.x = JoyStick.Horizontal;
+        //direction.y = JoyStick.Vertical;
 
 
         if (Input.GetKey(KeyCode.W))
@@ -97,18 +107,18 @@ public class Player : Character
     {
         Spell newSpell = spellBook.CastSpell(0);
 
-        if (!isAttacking)
+        if (!IsAttacking)
         {
-            isAttacking = true;
-            myAnimator.SetBool("attack", true);
+            IsAttacking = true;
+            MyAnimator.SetBool("attack", true);
 
             yield return new WaitForSeconds(newSpell.MyCastTime);
 
-            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+            Vector2 temp = new Vector2(MyAnimator.GetFloat("x"), MyAnimator.GetFloat("y"));
 
             FireSpell spell = Instantiate(newSpell.MySpellPrefab, transform.position, Quaternion.identity).GetComponent<FireSpell>();
             spell.SetUp(temp, ChooseSpellDirection());
-            spell.Initialize(newSpell.MyDamage);
+            spell.Initialize(newSpell.MyDamage, transform);
 
             StopAttack();
         }
@@ -121,20 +131,20 @@ public class Player : Character
     {
         Spell newSpell = spellBook.CastSpell(1);
 
-        if (!isAttackingSword)
+        if (!IsAttackingSword)
         {
-            isAttackingSword = true;
-            myAnimator.SetBool("attackSword", true);
+            IsAttackingSword = true;
+            MyAnimator.SetBool("attackSword", true);
 
             yield return new WaitForSeconds(newSpell.MyCastTime);
             Debug.Log("kkk");
 
 
-            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+            Vector2 temp = new Vector2(MyAnimator.GetFloat("x"), MyAnimator.GetFloat("y"));
 
             SwordSlash swordSlash = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SwordSlash>();
             swordSlash.SetUp(temp, ChooseSlashDirection());
-            swordSlash.Initialize(newSpell.MyDamage);
+            swordSlash.Initialize(newSpell.MyDamage,transform);
 
             StopAttackSword();
 
@@ -146,18 +156,18 @@ public class Player : Character
     {
         Spell newSpell = spellBook.CastSpell(2);
 
-        if (!isAttackingRasen)
+        if (!IsAttackingRasen)
         {
-            isAttackingRasen = true;
-            myAnimator.SetBool("attack2", true);
+            IsAttackingRasen = true;
+            MyAnimator.SetBool("attack2", true);
 
             yield return new WaitForSeconds(newSpell.MyCastTime);
 
-            Vector2 temp = new Vector2(myAnimator.GetFloat("x"), myAnimator.GetFloat("y"));
+            Vector2 temp = new Vector2(MyAnimator.GetFloat("x"), MyAnimator.GetFloat("y"));
 
             RasenSpell rasenSpell = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<RasenSpell>();
             rasenSpell.SetUp(temp, ChooseSlashDirection());
-            rasenSpell.Initialize(newSpell.MyDamage);
+            rasenSpell.Initialize(newSpell.MyDamage,transform);
 
             StopAttackRasen();
 
@@ -169,13 +179,13 @@ public class Player : Character
 
     Vector3 ChooseSpellDirection()
     {
-        float temp = Mathf.Atan2(myAnimator.GetFloat("y"), myAnimator.GetFloat("x")) * Mathf.Rad2Deg;
+        float temp = Mathf.Atan2(MyAnimator.GetFloat("y"), MyAnimator.GetFloat("x")) * Mathf.Rad2Deg;
         return new Vector3(0, 0, temp+180);
     }
 
     Vector3 ChooseSlashDirection()
     {
-        float temp = Mathf.Atan2(myAnimator.GetFloat("y"), myAnimator.GetFloat("x")) * Mathf.Rad2Deg;
+        float temp = Mathf.Atan2(MyAnimator.GetFloat("y"), MyAnimator.GetFloat("x")) * Mathf.Rad2Deg;
         return new Vector3(0, 0, temp);
     }
 
@@ -197,16 +207,16 @@ public class Player : Character
     {
         spellBook.StopCasting();
 
-        isAttacking = false;
-        myAnimator.SetBool("attack", isAttacking);
+        IsAttacking = false;
+        MyAnimator.SetBool("attack", IsAttacking);
     }
 
     public virtual void StopAttackSword()
     {
         spellBook.StopCasting();
 
-        isAttackingSword = false;
-        myAnimator.SetBool("attackSword", isAttackingSword);
+        IsAttackingSword = false;
+        MyAnimator.SetBool("attackSword", IsAttackingSword);
     }
 
     public virtual void StopAttackRasen()
@@ -214,8 +224,8 @@ public class Player : Character
         spellBook.StopCasting();
 
         // StopCoroutine(attackRoutine);
-        isAttackingRasen = false;
-        myAnimator.SetBool("attack2", isAttackingRasen);
+        IsAttackingRasen = false;
+        MyAnimator.SetBool("attack2", IsAttackingRasen);
     }
 
     

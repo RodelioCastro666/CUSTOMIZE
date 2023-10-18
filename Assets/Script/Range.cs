@@ -21,15 +21,15 @@ public class Range : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            parent.Target = collision.transform;
+            parent.SetTarget(collision.transform);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            parent.Target = null;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Player")
+    //    {
+    //        parent.MyTarget = null;
+    //    }
+    //}
 }
