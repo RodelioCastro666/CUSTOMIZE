@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -20,41 +22,64 @@ public class UiManager : MonoBehaviour
         }
     }
 
-   
+    [SerializeField]
+    private CanvasGroup keyBindMenu;
 
     [SerializeField]
-    private Button[] actionButton;
+    private ActionButton[] actionButton;
 
-    private KeyCode action1, action2, action3;
+   
+
+    private GameObject[] keybindButtons;
+
+    private void Awake()
+    {
+        keybindButtons = GameObject.FindGameObjectsWithTag("Keybinds");
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        action1 = KeyCode.Alpha1;
-        action2 = KeyCode.Alpha2;
-        action3 = KeyCode.Alpha3;
+       
+
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(action1))
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ActionButtonsOnClick(0);
-        }
-        if(Input.GetKeyDown(action2))
-        {
-            ActionButtonsOnClick(1);
-        }
-        if(Input.GetKeyDown(action3))
-        {
-            ActionButtonsOnClick(2);
+            OpenCloseMenu();
         }
     }
 
-    private void ActionButtonsOnClick(int btnIndex)
+   
+
+    public void OpenCloseMenu()
     {
-        actionButton[btnIndex].onClick.Invoke();
+        keyBindMenu.alpha = keyBindMenu.alpha > 0 ? 0 : 1;
+        keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
+        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
+    }
+
+    public void UpdateKeyText(string key, KeyCode code)
+    {
+        Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponentInChildren<Text>();
+        tmp.text = code.ToString();
+    }
+
+    public void CLickActionButton(string buttonName)
+    {
+        Array.Find(actionButton, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
+    }
+
+    public void SetUseable(ActionButton btn, IUseable useable)
+    {
+        btn.MyButton.image.sprite = useable.MyIcon;
+        btn.MyButton.image.color = Color.white;
+        btn.MyUseable = useable;
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
+    
+
     [SerializeField]
     private float speed;
 
@@ -18,7 +20,7 @@ public abstract class Character : MonoBehaviour
 
     public Animator MyAnimator { get; set; }
 
-    private Rigidbody2D myRigidbody2D;
+    protected Rigidbody2D myRigidbody2D;
 
     protected Coroutine attackRoutine;
 
@@ -81,6 +83,7 @@ public abstract class Character : MonoBehaviour
     {
         Move();
 
+       
 
     }
 
@@ -89,6 +92,11 @@ public abstract class Character : MonoBehaviour
         if (IsAlive)
         {
             myRigidbody2D.velocity = Direction.normalized * Speed;
+
+            if (myRigidbody2D.velocity.magnitude > 1f)
+            {
+                myRigidbody2D.velocity.Normalize();
+            }
         }
 
        

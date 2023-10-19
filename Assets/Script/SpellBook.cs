@@ -6,6 +6,22 @@ using UnityEngine.UI;
 
 public class SpellBook : MonoBehaviour
 {
+
+    private static SpellBook instance;
+
+    public static SpellBook MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<SpellBook>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Image castingBar;
 

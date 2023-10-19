@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class Spell
+public class Spell : IUseable
 {
     [SerializeField]
     private string name;
@@ -43,4 +43,9 @@ public class Spell
     public GameObject MySpellPrefab { get => spellPrefab; set => spellPrefab = value; }
 
     public Color MyBarColor { get => barColor; set => barColor = value; }
+
+    public void Use()
+    {
+         
+    }
 }

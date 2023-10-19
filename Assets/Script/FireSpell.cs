@@ -19,6 +19,8 @@ public class FireSpell : MonoBehaviour
 
     public Transform Mytarget { get; set; }
 
+    public Sprite MyIcon => throw new System.NotImplementedException();
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -59,5 +61,8 @@ public class FireSpell : MonoBehaviour
        
     }
 
-
+    public void Use()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -351,7 +351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Untitled30_20230925182019 (1)_10
+      name: gradient
       rect:
         serializedVersion: 2
         x: 0
@@ -576,7 +576,6 @@ TextureImporter:
       Lock: -2117707538
       Red Frame: 2048303577
       Untitled30_20230925182019 (1)_0: 870023422
-      Untitled30_20230925182019 (1)_10: -1635493775
       Untitled30_20230925182019 (1)_12: 1482369036
       Untitled30_20230925182019 (1)_14: 1268323567
       Untitled30_20230925182019 (1)_19: -2038576192
@@ -591,6 +590,7 @@ TextureImporter:
       Yellow Frame: -1781252648
       attack darkblue: -1496034920
       attack pink: -77041677
+      gradient: -1635493775
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -4,8 +4,23 @@ using UnityEngine;
 
 public class Player : Character
 {
-    //[SerializeField]
-    //private FixedJoystick JoyStick;
+    private static Player instance;
+
+    public static Player MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<Player>();
+            }
+
+            return instance;
+        }
+    }
+
+    [SerializeField]
+    private FixedJoystick JoyStick;
 
     [SerializeField]
     private Stat mana;
@@ -54,33 +69,79 @@ public class Player : Character
     {
         direction = Vector2.zero;
 
-        
 
 
-        direction.x = Input.GetAxisRaw("Horizontal");
-        direction.y = Input.GetAxisRaw("Vertical");
+
+        //direction.x = Input.GetAxisRaw("Horizontal");
+       // direction.y = Input.GetAxisRaw("Vertical");
 
 
-        //direction.x = JoyStick.Horizontal;
-        //direction.y = JoyStick.Vertical;
+        direction.x = JoyStick.Horizontal;
+        direction.y = JoyStick.Vertical;
 
 
-        if (Input.GetKey(KeyCode.W))
+        if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            exitIndex = 0;
+            direction.y = 0;
+            if (direction.x > 0)
+            {
+                Debug.Log("right");
+                exitIndex = 1;
+
+            }
+
+            if (direction.x < 0)
+            {
+                Debug.Log("left");
+                exitIndex = 3;
+
+            }
         }
-        if (Input.GetKey(KeyCode.A))
+        else
         {
-            exitIndex = 3;
+            direction.x = 0;
+
+            if (direction.y > 0)
+            {
+                Debug.Log("up");
+                exitIndex = 0;
+
+            }
+
+            if (direction.y < 0)
+            {
+                Debug.Log("down");
+                exitIndex = 2;
+
+            }
         }
-        if (Input.GetKey(KeyCode.S))
+
+
+        if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["UP"]))
         {
-            exitIndex = 2;
+            Direction += Vector2.up;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["LEFT"]))
         {
-            exitIndex = 1;
+            Direction += Vector2.left;
         }
+        if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["DOWN"]))
+        {
+            Direction += Vector2.down;
+        }
+        if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["RIGHT"]))
+        {
+            Direction += Vector2.right;
+        }
+
+        foreach(string action in KeyBindManager.MyInstacne.ActionBinds.Keys)
+        {
+            if (Input.GetKeyDown(KeyBindManager.MyInstacne.ActionBinds[action]))
+            {
+                UiManager.MyInstance.CLickActionButton(action);
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -175,7 +236,7 @@ public class Player : Character
         }
     }
 
-        
+    
 
     Vector3 ChooseSpellDirection()
     {
