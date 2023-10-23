@@ -28,7 +28,8 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private ActionButton[] actionButton;
 
-   
+    //[SerializeField]
+    //private CanvasGroup spellBook;
 
     private GameObject[] keybindButtons;
 
@@ -52,18 +53,26 @@ public class UiManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenCloseMenu();
+            OpenClose(keyBindMenu);
+        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    OpenClose(spellBook);
+        //}
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            InventoryScript.MyInstance.OpenClose();
         }
     }
 
    
 
-    public void OpenCloseMenu()
-    {
-        keyBindMenu.alpha = keyBindMenu.alpha > 0 ? 0 : 1;
-        keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
-        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
-    }
+    //public void OpenCloseMenu()
+    //{
+    //    keyBindMenu.alpha = keyBindMenu.alpha > 0 ? 0 : 1;
+    //    keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
+    //    Time.timeScale = Time.timeScale > 0 ? 0 : 1;
+    //}
 
     public void UpdateKeyText(string key, KeyCode code)
     {
@@ -76,10 +85,31 @@ public class UiManager : MonoBehaviour
         Array.Find(actionButton, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
     }
 
-    public void SetUseable(ActionButton btn, IUseable useable)
+    
+
+    public void OpenClose(CanvasGroup canvasGroup)
     {
-        btn.MyButton.image.sprite = useable.MyIcon;
-        btn.MyButton.image.color = Color.white;
-        btn.MyUseable = useable;
+        canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    public void UpdateStackSize(IClickable clickable)
+    {
+        if(clickable.MyCount > 1)
+        {
+            clickable.MyStackText.text = clickable.MyCount.ToString();
+            clickable.MyStackText.color = Color.white;
+            clickable.MyIcon.color = Color.white;
+        }
+        else
+        {
+            clickable.MyStackText.color = new Color(0, 0, 0, 0);
+            clickable.MyIcon.color = Color.white;
+        }
+        if(clickable.MyCount == 0)
+        {
+            clickable.MyIcon.color = new Color(0, 0, 0, 0);
+            clickable.MyStackText.color = new Color(0, 0, 0, 0);
+        }
     }
 }

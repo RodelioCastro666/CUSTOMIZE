@@ -162,7 +162,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheet_7_1
+      name: Potion
       rect:
         serializedVersion: 2
         x: 97
@@ -443,7 +443,7 @@ TextureImporter:
         width: 30
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -466,8 +466,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Potion: -1087116246
       spritesheet_7_0: 1357081348
-      spritesheet_7_1: -1087116246
       spritesheet_7_10: 1000763408
       spritesheet_7_11: -305296202
       spritesheet_7_12: 1366088293

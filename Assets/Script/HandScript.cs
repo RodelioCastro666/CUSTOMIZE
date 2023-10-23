@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 
 public class HandScript : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     private Vector3 offset;
 
-    public static HandScript instance;
+    private static HandScript instance;
 
     public static HandScript MyInstance
     {
@@ -17,80 +17,74 @@ public class HandScript : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<HandScript>();
+                instance = FindAnyObjectByType<HandScript>();
             }
 
             return instance;
         }
     }
 
-    //public IMovable MyMoveable { get; set; }
+    public IMoveable MyMoveable { get; set; }
 
     private Image icon;
 
-    void Start()
+    private void Start()
     {
         icon = GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    icon.transform.position = Input.mousePosition + offset;
+    private void Update()
+    {
+        icon.transform.position = Input.mousePosition;
 
-    //    if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
-    //    {
-    //        DeleteItem();
-    //    }
+       // DeleteItem();
+        
+    }
 
+    public void TakeMoveable(IMoveable moveable)
+    {
+        
+        
+            this.MyMoveable = moveable;
+            icon.sprite = moveable.MyIcon;
+            icon.color = Color.white;
 
-    //}
+    }
 
-    //public void TakeMoveable(IMovable moveable)
-    //{
-    //    this.MyMoveable = moveable;
-    //    icon.sprite = moveable.MyIcon;
-    //    icon.color = Color.white;
-    //}
+    public IMoveable Put()
+    {
+        IMoveable tmp = MyMoveable;
 
-    //public IMovable Put()
-    //{
-    //    IMovable tmp = MyMoveable;
-    //    MyMoveable = null;
-    //    icon.color = new Color(0, 0, 0, 0);
-    //    return tmp;
-    //}
+        MyMoveable = null;
 
-    //public void Drop()
-    //{
-    //    MyMoveable = null;
-    //    icon.color = new Color(0, 0, 0, 0);
-    //    InventoryScripts.MyInstance.FromSlot = null;
+        icon.color = new Color(0, 0, 0, 0);
 
-    //}
+        return tmp;
+    }
+    public void Drop()
+    {
+        MyMoveable = null;
+        icon.color = new Color(0, 0, 0, 0);
+        InventoryScript.MyInstance.FromSlot = null;
 
-    //public void DeleteItem()
-    //{
+    }
 
+    public void DeleteItem()
+    {
+        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
+        {
+            Debug.Log("A");
+            if (MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
+            {
+                //(MyMoveable as Item).MySlot.Clear();
+                Debug.Log("B");
+            }
 
-    //    if (MyMoveable is Item && InventoryScripts.MyInstance.FromSlot != null)
-    //    {
+            Drop();
 
-    //        (MyMoveable as Item).MySlot.Clear();
-    //        Debug.Log("delete");
+            InventoryScript.MyInstance.FromSlot = null;
+        }
+    }
 
-    //    }
-
-    //    Drop();
-    //    InventoryScripts.MyInstance.FromSlot = null;
-
-
-
-
-
-
-
-    //}
-
-
+    
 }

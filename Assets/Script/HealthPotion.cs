@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName ="HealthPotion", menuName ="Items/Potion", order =2)]
+public class HealthPotion : Item, IUseable
+{
+    [SerializeField]
+    private int health;
+
+    public void Use()
+    {
+        if(Player.MyInstance.MyHealth.MyCurrentValue < Player.MyInstance.MyHealth.MyMaxValue)
+        {
+            Remove();
+
+            Player.MyInstance.MyHealth.MyCurrentValue += health;
+        }
+
+       
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

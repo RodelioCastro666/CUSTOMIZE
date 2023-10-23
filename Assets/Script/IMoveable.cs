@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public interface IUseable
+public interface IMoveable
 {
-   
-
-    void Use();
-
+    Sprite MyIcon
+    {
+        get;
+    }
 }

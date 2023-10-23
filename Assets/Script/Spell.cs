@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-public class Spell : IUseable
+public class Spell : IUseable//, IMoveable
 {
     [SerializeField]
     private string name;
@@ -35,6 +35,8 @@ public class Spell : IUseable
     public int MyDamage { get => damage; set => damage = value; }
 
     public Sprite MyIcon { get => icon; set => icon = value; }
+
+   // public Sprite MyICon => throw new NotImplementedException();
 
     public float MySpeed { get => speed; set => speed = value; }
 
