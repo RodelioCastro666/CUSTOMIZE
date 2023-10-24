@@ -4,6 +4,21 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject, IMoveable
 {
+    private static Item instance;
+
+    public static Item MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<Item>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Sprite icon;
 

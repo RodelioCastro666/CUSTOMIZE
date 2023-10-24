@@ -33,6 +33,11 @@ public class UiManager : MonoBehaviour
 
     private GameObject[] keybindButtons;
 
+    [SerializeField]
+    private GameObject toolTip;
+
+    
+
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybinds");
@@ -112,4 +117,16 @@ public class UiManager : MonoBehaviour
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
         }
     }
+
+    public void ShowToolTip()
+    {
+        toolTip.SetActive(true);
+    }
+
+    public void HideToolTip()
+    {
+        toolTip.SetActive(false);
+    }
+
+   
 }

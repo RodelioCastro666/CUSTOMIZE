@@ -37,7 +37,7 @@ public class HandScript : MonoBehaviour
     {
         icon.transform.position = Input.mousePosition;
 
-       // DeleteItem();
+      // DeleteItem();
         
     }
 
@@ -73,11 +73,11 @@ public class HandScript : MonoBehaviour
     {
         if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
         {
-            Debug.Log("A");
+            
             if (MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
             {
-                //(MyMoveable as Item).MySlot.Clear();
-                Debug.Log("B");
+                (MyMoveable as Item).MySlot.Clear();
+               
             }
 
             Drop();

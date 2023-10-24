@@ -122,15 +122,21 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public void OnPointerClick(PointerEventData eventData)
     {
-       
-        if(eventData.button == PointerEventData.InputButton.Right)
+
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
+            
             UseItem();
-        } 
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!IsEmpty)
+        {
+            UiManager.MyInstance.ShowToolTip();
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (InventoryScript.MyInstance.FromSlot == null)
@@ -148,7 +154,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     public void OnDrop(PointerEventData eventData)
     {
-        
+        UiManager.MyInstance.HideToolTip();
 
         if (InventoryScript.MyInstance.FromSlot != null)
         {
@@ -163,12 +169,18 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        PutItemBack();
-        //HandScript.MyInstance.MyMoveable as Item).MySlot.Clear();
+        // PutItemBack();
+        if (HandScript.MyInstance.MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
+        {
+            (HandScript.MyInstance.MyMoveable as Item).MySlot.Clear();
 
-        //HandScript.MyInstance.DeleteItem();
+        }
+
+       
+        Debug.Log("Endrag");
+     // HandScript.MyInstance.DeleteItem();
         HandScript.MyInstance.Drop();
-        InventoryScript.MyInstance.FromSlot = null;
+        //InventoryScript.MyInstance.FromSlot = null;
 
 
        
@@ -181,7 +193,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         if(MyItem is IUseable)
         {
             (MyItem as IUseable).Use();
+           
         }
+        
     }
 
     private bool MergeItems(SlotScript from)
