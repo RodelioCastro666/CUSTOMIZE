@@ -64,6 +64,9 @@ public class Enemy : NPC
         base.Update();
     }
 
+    [SerializeField]
+    private LootTable lootTable;
+
     public void OnHealthChanged(float health)
     {
         if (healthChanged != null)
@@ -115,5 +118,15 @@ public class Enemy : NPC
         this.MyAggroRange = initAggroRange;
         this.MyHealth.MyCurrentValue = this.MyHealth.MyMaxValue;
         OnHealthChanged(health.MyCurrentValue);
+    }
+
+    public override void Interact()
+    {
+        if (!IsAlive)
+        {
+            lootTable.ShowLoot();
+        }
+
+        
     }
 }

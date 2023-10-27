@@ -134,7 +134,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     {
         if (!IsEmpty)
         {
-            UiManager.MyInstance.ShowToolTip();
+            UiManager.MyInstance.ShowToolTip(MyItem);
         }
 
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -169,21 +169,29 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        // PutItemBack();
-        if (HandScript.MyInstance.MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
+      UiManager.MyInstance.HideToolTip();
+        
+        if(!EventSystem.current.IsPointerOverGameObject() && HandScript.MyInstance.MyMoveable != null)
         {
-            (HandScript.MyInstance.MyMoveable as Item).MySlot.Clear();
+            if (HandScript.MyInstance.MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
+            {
+                (HandScript.MyInstance.MyMoveable as Item).MySlot.Clear();
 
+            }
+
+
+            Debug.Log("Endrag");
+
+            HandScript.MyInstance.Drop();
         }
 
-       
-        Debug.Log("Endrag");
-     // HandScript.MyInstance.DeleteItem();
+
+        PutItemBack();
         HandScript.MyInstance.Drop();
-        //InventoryScript.MyInstance.FromSlot = null;
 
 
-       
+
+
 
 
     }
@@ -194,6 +202,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         {
             (MyItem as IUseable).Use();
            
+        }
+        else if (MyItem is Armor)
+        {
+            (MyItem as Armor).Equip();
         }
         
     }

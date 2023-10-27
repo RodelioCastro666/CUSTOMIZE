@@ -31,16 +31,20 @@ public class UiManager : MonoBehaviour
     //[SerializeField]
     //private CanvasGroup spellBook;
 
+    private TextMeshProUGUI toolTipText;
+
     private GameObject[] keybindButtons;
 
     [SerializeField]
     private GameObject toolTip;
-
+    [SerializeField]
+    private CharacterPanel charPanel;
     
 
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybinds");
+        toolTipText = toolTip.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     // Start is called before the first frame update
@@ -67,6 +71,10 @@ public class UiManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             InventoryScript.MyInstance.OpenClose();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            charPanel.OpenClose();
         }
     }
 
@@ -118,14 +126,20 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void ShowToolTip()
+    public void ShowToolTip(IDescribable description)
     {
         toolTip.SetActive(true);
+        toolTipText.text = description.GetDescription();
     }
 
     public void HideToolTip()
     {
         toolTip.SetActive(false);
+    }
+
+    public void RefreshToolTip(IDescribable description)
+    {
+        toolTipText.text = description.GetDescription();
     }
 
    

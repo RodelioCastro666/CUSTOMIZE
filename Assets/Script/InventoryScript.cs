@@ -62,7 +62,7 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         Bag bag = (Bag)Instantiate(items[0]);
-        bag.Initialize(74);
+        bag.Initialize(75);
         bag.Use();
     }
 
@@ -83,19 +83,36 @@ public class InventoryScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            HealthPotion potion = (HealthPotion)Instantiate(items[1]);
+            HealthPotion potion = (HealthPotion)Instantiate(items[4]);
             AddItem(potion);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            
+           
+            AddItem((Armor)Instantiate(items[1]));
+            AddItem((Armor)Instantiate(items[2]));
+            AddItem((Armor)Instantiate(items[3]));
+            AddItem((Armor)Instantiate(items[5]));
+            AddItem((Armor)Instantiate(items[6]));
+            AddItem((Armor)Instantiate(items[7]));
+            AddItem((Armor)Instantiate(items[8]));
+            AddItem((Armor)Instantiate(items[9]));
+            AddItem((Armor)Instantiate(items[10]));
+        }
     }
-    private void PlaceInEmpty(Item item)
+    private bool PlaceInEmpty(Item item)
     {
         foreach(Bag bag in bags)
         {
             if (bag.MyBagScript.AddItem(item))
             {
-                return;
+               // OnItemCountChanged(item);
+                return true;
             }
         }
+
+        return false;
     }
 
     public Stack<IUseable> GetUseables(IUseable type)
@@ -162,17 +179,17 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
-    public void AddItem(Item item)
+    public bool  AddItem(Item item)
     {
        if(item.MyStackSize > 0)
        {
             if (PlaceInStack(item))
             {
-                return;
+                return true;
             }
        }
 
-        PlaceInEmpty(item);
+        return PlaceInEmpty(item);
     }
 
     public void OnItemCountChanged(Item item)

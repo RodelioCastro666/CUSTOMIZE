@@ -71,8 +71,7 @@ public class HandScript : MonoBehaviour
 
     public void DeleteItem()
     {
-        if(Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
-        {
+        
             
             if (MyMoveable is Item && InventoryScript.MyInstance.FromSlot != null)
             {
@@ -83,7 +82,7 @@ public class HandScript : MonoBehaviour
             Drop();
 
             InventoryScript.MyInstance.FromSlot = null;
-        }
+        
     }
 
     

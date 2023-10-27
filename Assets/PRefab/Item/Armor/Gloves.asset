@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764c7f5a0e57ced46bb93c8509860669, type: 3}
-  m_Name: HealthPotion
+  m_Script: {fileID: 11500000, guid: b34c8c54a6f65ae4e9416c9ccbd5233b, type: 3}
+  m_Name: Gloves
   m_EditorClassIdentifier: 
-  icon: {fileID: -1087116246, guid: 38f0a637c60659644bb132b612736248, type: 3}
-  stackSize: 5
-  title: HealthPotion
-  quality: 2
-  health: 10
+  icon: {fileID: -995539112, guid: 38f0a637c60659644bb132b612736248, type: 3}
+  stackSize: 0
+  title: Gloves
+  quality: 0
+  armorType: 3
+  intellect: 10
+  strength: 11
+  stamina: 12

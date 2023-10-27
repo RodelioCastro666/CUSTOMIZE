@@ -13,4 +13,9 @@ public class NPC : Character
     {    
         return hitBox; 
     }
+
+    public virtual void Interact()
+    {
+        Debug.Log("lklkk");
+    }
 }

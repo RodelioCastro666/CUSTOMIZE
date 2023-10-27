@@ -20,15 +20,8 @@ public class HealthPotion : Item, IUseable
        
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override string GetDescription()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return base.GetDescription() + string.Format("\n Restore {0} health", health);
     }
 }
