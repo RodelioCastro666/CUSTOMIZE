@@ -7,6 +7,21 @@ using TMPro;
 
 public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDragHandler, IDropHandler,IEndDragHandler
 {
+    private static SlotScript instance;
+
+    public static SlotScript MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<SlotScript>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Image icon;
 
@@ -123,7 +138,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
     public void OnPointerClick(PointerEventData eventData)
     {
 
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && HandScript.MyInstance.MyMoveable == null)
         {
             
             UseItem();
@@ -165,6 +180,35 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
                 Debug.Log("Drop");
                 
             }
+
+            
+        }
+        if (InventoryScript.MyInstance.FromSlot == null && IsEmpty)
+        {
+            if(HandScript.MyInstance.MyMoveable is Armor)
+            {
+                Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+                AddItem(armor);
+                CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
+                HandScript.MyInstance.Drop();
+
+            }
+        }
+
+        if(InventoryScript.MyInstance.FromSlot == null && !IsEmpty)
+        {
+            if(HandScript.MyInstance.MyMoveable != null)
+            {
+                if(HandScript.MyInstance.MyMoveable is Armor)
+                {
+                    if(MyItem is Armor && (MyItem as Armor).MyArmorType == (HandScript.MyInstance.MyMoveable as Armor).MyArmorType)
+                    {
+                        (MyItem as Armor).Equip();
+                       // UiManager.MyInstance.RefreshToolTip();
+                        HandScript.MyInstance.Drop();
+                    }
+                }
+            }
         }
     }
     public void OnEndDrag(PointerEventData eventData)
@@ -183,16 +227,12 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
             Debug.Log("Endrag");
 
             HandScript.MyInstance.Drop();
+            InventoryScript.MyInstance.FromSlot = null;
         }
 
 
         PutItemBack();
         HandScript.MyInstance.Drop();
-
-
-
-
-
 
     }
 
@@ -243,7 +283,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
         return false;
     }
 
-    private bool PutItemBack()
+    public bool PutItemBack()
     {
         if(InventoryScript.MyInstance.FromSlot == this)
         {

@@ -45,11 +45,14 @@ public abstract class Item : ScriptableObject, IMoveable,IDescribable
 
     public string MyTitle { get => title;}
 
+    public CharButton MyCharButton { get; set; }
+
     public void Remove()
     {
         if(MySlot != null)
         {
             MySlot.RemoveItem(this);
+           // MySlot = null;
         }
     }
 

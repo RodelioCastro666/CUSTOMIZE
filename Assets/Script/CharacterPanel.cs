@@ -25,6 +25,8 @@ public class CharacterPanel : MonoBehaviour
     [SerializeField]
     private CharButton helmet, shoulders, chest, gloves, boots, orb, sword, staff;
 
+    public CharButton MySelectedButton { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
