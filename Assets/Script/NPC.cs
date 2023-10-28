@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : Character
+public class NPC : Character, IInteractable
 {
     public virtual void DeSelect()
     {
@@ -17,5 +17,10 @@ public class NPC : Character
     public virtual void Interact()
     {
         Debug.Log("lklkk");
+    }
+
+    public virtual void StopInteract()
+    {
+        
     }
 }

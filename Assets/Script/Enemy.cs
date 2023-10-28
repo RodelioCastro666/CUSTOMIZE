@@ -125,8 +125,11 @@ public class Enemy : NPC
         if (!IsAlive)
         {
             lootTable.ShowLoot();
-        }
+        }  
+    }
 
-        
+    public override void StopInteract()
+    {
+        LootWindow.MyInstance.Close();
     }
 }

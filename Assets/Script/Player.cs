@@ -25,7 +25,7 @@ public class Player : Character
     [SerializeField]
     private Stat mana;
 
-    
+    private IInteractable interactable;
 
     private float initiMana = 50;
 
@@ -289,5 +289,31 @@ public class Player : Character
         MyAnimator.SetBool("attack2", IsAttackingRasen);
     }
 
-    
+    public void Interact()
+    {
+        if(interactable != null)
+        {
+            interactable.Interact();
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" || collision.tag == "Interactable")
+        {
+            interactable = collision.GetComponent<IInteractable>();
+        }
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" || collision.tag == "Interactable" )
+        {
+            if(interactable != null)
+            {
+                interactable.StopInteract();
+                interactable = null;
+            }
+        }
+    }
+
 }
