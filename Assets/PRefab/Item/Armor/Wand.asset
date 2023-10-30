@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Wand
   quality: 0
+  price: 9
   armorType: 6
   intellect: 10
   strength: 11

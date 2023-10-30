@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Helmet
   quality: 3
+  price: 4
   armorType: 0
   intellect: 10
   strength: 11

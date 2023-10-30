@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 
@@ -33,6 +34,9 @@ public abstract class Item : ScriptableObject, IMoveable,IDescribable
     [SerializeField]
     private Quality quality;
 
+    [SerializeField]
+    private int price;
+
     private SlotScript slot;
 
     public Sprite MyIcon { get => icon;}
@@ -46,6 +50,9 @@ public abstract class Item : ScriptableObject, IMoveable,IDescribable
     public string MyTitle { get => title;}
 
     public CharButton MyCharButton { get; set; }
+
+
+    public int MyPrice { get => price; }
 
     public void Remove()
     {

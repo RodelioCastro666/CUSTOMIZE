@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Chest
   quality: 0
+  price: 2
   armorType: 2
   intellect: 10
   strength: 11

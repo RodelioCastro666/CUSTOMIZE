@@ -149,6 +149,24 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
+    public int GetItemCount(string type)
+    {
+        int itemCount = 0;
+
+        foreach(Bag bag in bags)
+        {
+            foreach(SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if(!slot.IsEmpty && slot.MyItem.MyTitle == type)
+                {
+                    itemCount += slot.MyItems.Count;
+                }
+            }
+        }
+
+        return itemCount;
+    }
+
     private bool PlaceInStack(Item item)
     {
         foreach(Bag bag in bags)

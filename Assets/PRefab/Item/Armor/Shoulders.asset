@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Shoulders
   quality: 0
+  price: 7
   armorType: 1
   intellect: 10
   strength: 11

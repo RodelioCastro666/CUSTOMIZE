@@ -183,7 +183,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_2
+      name: 1
       rect:
         serializedVersion: 2
         x: 0
@@ -192,7 +192,7 @@ TextureImporter:
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 13, y: 10, z: 10, w: 11}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -204,7 +204,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_3
+      name: 11
       rect:
         serializedVersion: 2
         x: 320
@@ -213,7 +213,7 @@ TextureImporter:
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 10, y: 9, z: 11, w: 10}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -225,7 +225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_4
+      name: 2
       rect:
         serializedVersion: 2
         x: 0
@@ -246,7 +246,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_5
+      name: 12
       rect:
         serializedVersion: 2
         x: 320
@@ -267,7 +267,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_6
+      name: 3
       rect:
         serializedVersion: 2
         x: 0
@@ -288,7 +288,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_7
+      name: 13
       rect:
         serializedVersion: 2
         x: 320
@@ -309,7 +309,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_8
+      name: 4
       rect:
         serializedVersion: 2
         x: 0
@@ -330,7 +330,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_9
+      name: 14
       rect:
         serializedVersion: 2
         x: 320
@@ -351,7 +351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_10
+      name: 5
       rect:
         serializedVersion: 2
         x: 0
@@ -360,7 +360,7 @@ TextureImporter:
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 12, y: 11, z: 12, w: 14}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -372,7 +372,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_11
+      name: 15
       rect:
         serializedVersion: 2
         x: 320
@@ -393,7 +393,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_12
+      name: 6
       rect:
         serializedVersion: 2
         x: 0
@@ -418,12 +418,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 320
-        y: 440
+        y: 442
         width: 320
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 9, y: 8, z: 10, w: 12}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -435,7 +435,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_14
+      name: BlackBG
       rect:
         serializedVersion: 2
         x: 0
@@ -444,7 +444,7 @@ TextureImporter:
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 14, y: 10, z: 10, w: 13}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -456,11 +456,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_15
+      name: 16
       rect:
         serializedVersion: 2
-        x: 320
-        y: 360
+        x: 318
+        y: 358
         width: 320
         height: 80
       alignment: 0
@@ -477,7 +477,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_16
+      name: 7
       rect:
         serializedVersion: 2
         x: 0
@@ -498,7 +498,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_17
+      name: 17
       rect:
         serializedVersion: 2
         x: 320
@@ -519,10 +519,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_18
+      name: 8
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 200
         width: 320
         height: 80
@@ -540,7 +540,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_19
+      name: 18
       rect:
         serializedVersion: 2
         x: 320
@@ -561,7 +561,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_20
+      name: 9
       rect:
         serializedVersion: 2
         x: 0
@@ -582,7 +582,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_21
+      name: 19
       rect:
         serializedVersion: 2
         x: 320
@@ -603,7 +603,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_22
+      name: 10
       rect:
         serializedVersion: 2
         x: 0
@@ -624,7 +624,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 10_basic_message_boxes_by_CharlesGabriel_23
+      name: 20
       rect:
         serializedVersion: 2
         x: 320
@@ -655,29 +655,29 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      1: 194187207
+      10: 816034508
       10_basic_message_boxes_by_CharlesGabriel_0: -1169560312
       10_basic_message_boxes_by_CharlesGabriel_1: 1075496328
-      10_basic_message_boxes_by_CharlesGabriel_10: -730811097
-      10_basic_message_boxes_by_CharlesGabriel_11: 277436565
-      10_basic_message_boxes_by_CharlesGabriel_12: 37653666
-      10_basic_message_boxes_by_CharlesGabriel_14: -29821200
-      10_basic_message_boxes_by_CharlesGabriel_15: 644501139
-      10_basic_message_boxes_by_CharlesGabriel_16: -1831761577
-      10_basic_message_boxes_by_CharlesGabriel_17: 284257782
-      10_basic_message_boxes_by_CharlesGabriel_18: -53950893
-      10_basic_message_boxes_by_CharlesGabriel_19: 1247141325
-      10_basic_message_boxes_by_CharlesGabriel_2: 194187207
-      10_basic_message_boxes_by_CharlesGabriel_20: 1561762627
-      10_basic_message_boxes_by_CharlesGabriel_21: -682514682
-      10_basic_message_boxes_by_CharlesGabriel_22: 816034508
-      10_basic_message_boxes_by_CharlesGabriel_23: -450010298
-      10_basic_message_boxes_by_CharlesGabriel_3: -1659141669
-      10_basic_message_boxes_by_CharlesGabriel_4: -1099045683
-      10_basic_message_boxes_by_CharlesGabriel_5: -200151234
-      10_basic_message_boxes_by_CharlesGabriel_6: -739001483
-      10_basic_message_boxes_by_CharlesGabriel_7: 1106050208
-      10_basic_message_boxes_by_CharlesGabriel_8: -2028535628
-      10_basic_message_boxes_by_CharlesGabriel_9: -1361856166
+      11: -1659141669
+      12: -200151234
+      13: 1106050208
+      14: -1361856166
+      15: 277436565
+      16: 644501139
+      17: 284257782
+      18: 1247141325
+      19: -682514682
+      2: -1099045683
+      20: -450010298
+      3: -739001483
+      4: -2028535628
+      5: -730811097
+      6: 37653666
+      7: -1831761577
+      8: -53950893
+      9: 1561762627
+      BlackBG: -29821200
       blue: 1842345944
   spritePackingTag: 
   pSDRemoveMatte: 0

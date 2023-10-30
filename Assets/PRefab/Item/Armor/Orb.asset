@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Orb
   quality: 0
+  price: 6
   armorType: 7
   intellect: 10
   strength: 11

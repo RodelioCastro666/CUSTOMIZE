@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Sword
   quality: 0
+  price: 8
   armorType: 5
   intellect: 10
   strength: 11

@@ -32,7 +32,18 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
         get { return stackSize; }
     }
 
-   
+    public Stack<IUseable> MyUseables 
+    { get => useables;
+
+        set
+        {
+            MyUseable = value.Peek();
+            useables = value;
+
+        }
+    }
+
+
 
 
     // Start is called before the first frame update
@@ -57,9 +68,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
             {
                 MyUseable.Use();
             }
-            if(useables != null && useables.Count > 0)
+            if(MyUseables != null && MyUseables.Count > 0)
             {
-                useables.Peek().Use();
+                MyUseables.Peek().Use();
             }
         }
 
@@ -75,19 +86,21 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
     {
         if(useable is Item)
         {
-            useables = InventoryScript.MyInstance.GetUseables(useable);
-            count = useables.Count;
+            MyUseables = InventoryScript.MyInstance.GetUseables(useable);
+           
             InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
             InventoryScript.MyInstance.FromSlot = null;
         }
         else
         {
+            //useables.Clear();
             this.MyUseable = useable;
         }
 
-        
 
+        count = MyUseables.Count;
         UpdateVisual(useable as IMoveable);
+        UiManager.MyInstance.RefreshToolTip(MyUseable as IDescribable);
     }
 
     public void UpdateVisual(IMoveable moveable)
@@ -115,13 +128,13 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
 
     public void UpdateItemCount(Item item)
     {
-        if(item is IUseable && useables.Count > 0)
+        if(item is IUseable && MyUseables.Count > 0)
         {
-            if(useables.Peek().GetType() == item.GetType())
+            if(MyUseables.Peek().GetType() == item.GetType())
             {
-                useables = InventoryScript.MyInstance.GetUseables(item as IUseable);
+                MyUseables = InventoryScript.MyInstance.GetUseables(item as IUseable);
 
-                count = useables.Count;
+                count = MyUseables.Count;
 
                 UiManager.MyInstance.UpdateStackSize(this);
             }

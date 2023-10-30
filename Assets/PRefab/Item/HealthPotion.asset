@@ -16,4 +16,5 @@ MonoBehaviour:
   stackSize: 5
   title: HealthPotion
   quality: 2
+  price: 10
   health: 10

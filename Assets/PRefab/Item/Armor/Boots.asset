@@ -16,6 +16,7 @@ MonoBehaviour:
   stackSize: 0
   title: Boots
   quality: 0
+  price: 1
   armorType: 4
   intellect: 10
   strength: 11
