@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class QuestLog : MonoBehaviour
 {
@@ -12,6 +13,23 @@ public class QuestLog : MonoBehaviour
     private Transform questParent;
 
     private Quest selected;
+
+   
+
+    [SerializeField]
+    private TextMeshProUGUI questCountTxt;
+
+    [SerializeField]
+    private int maxCount;
+
+    private int currentCount;
+
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
+    private List<QuestScript> questScripts = new List<QuestScript>();
+
+    private List<Quest> quests = new List<Quest>();
 
     [SerializeField]
     private TextMeshProUGUI questDescription;
@@ -34,13 +52,16 @@ public class QuestLog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        questCountTxt.text = currentCount + "/" + maxCount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            OpenClose();
+        }
     }
 
     public void UpdateSelected()
@@ -50,39 +71,130 @@ public class QuestLog : MonoBehaviour
 
     public void AcceptQuest(Quest quest)
     {
-        foreach(CollectObjective o in quest.MyCollectObjectives)
+        if(currentCount < maxCount)
         {
-            InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(o.UpdateItemCount);
+            currentCount++;
+            questCountTxt.text = currentCount + "/" + maxCount;
+            foreach (CollectObjective o in quest.MyCollectObjectives)
+            {
+
+                InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(o.UpdateItemCount);
+                o.UpdateItemCount();
+            }
+
+            foreach (KillObjective o in quest.MyKillObjectives)
+            {
+
+                GameManager.MyInstance.killConfirmedEvent += new KillConfirmed(o.UpdateKillCount);
+            }
+
+
+
+            quests.Add(quest);
+
+            GameObject go = Instantiate(questPrefab, questParent);
+
+            QuestScript qs = go.GetComponent<QuestScript>();
+            quest.MyQuestScript = qs;
+            qs.MyQuest = quest;
+            questScripts.Add(qs);
+
+            go.GetComponent<TextMeshProUGUI>().text = quest.MyTitle;
         }
 
-        GameObject go = Instantiate(questPrefab, questParent);
-
-        QuestScript qs = go.GetComponent<QuestScript>();
-        quest.MyQuestScript = qs;
-        qs.MyQuest = quest;
-     
-
-        go.GetComponent<TextMeshProUGUI>().text = quest.MyTitle;
+       
     }
 
     public void ShowDescription(Quest quest)
     {
-        if(selected != null)
+        if(quest != null)
         {
-            selected.MyQuestScript.DeSelect();
+            if (selected != null && selected != quest)
+            {
+                selected.MyQuestScript.DeSelect();
+            }
+
+            string objectives = string.Empty;
+
+            selected = quest;
+
+            string title = quest.MyTitle;
+
+            foreach (Objective obj in quest.MyCollectObjectives)
+            {
+                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+            }
+            foreach (Objective obj in quest.MyKillObjectives)
+            {
+                objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+            }
+
+            questDescription.text = string.Format("{0}\n<size=25>{1}</size>\n\nObjectives:\n<size=25>{2}</size>", title, quest.MyDescription, objectives);
         }
 
-        string objectives = string.Empty;
+       
+    }
 
-        selected = quest;
-
-        string title = quest.MyTitle;
-
-        foreach(Objective obj in quest.MyCollectObjectives)
+    public void CheckCompletion()
+    {
+        foreach(QuestScript qs in questScripts)
         {
-            objectives += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+            qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
+            qs.IsComplete();
+        }
+    }
+
+    public void OpenClose()
+    {
+        if(canvasGroup.alpha == 1)
+        {
+            canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
+        }
+        else
+        {
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    public void Close()
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    public void RemoveQuest(QuestScript qs)
+    {
+        questScripts.Remove(qs);
+        Destroy(qs.gameObject);
+        quests.Remove(qs.MyQuest);
+        questDescription.text = string.Empty;
+        selected = null;
+        currentCount--;
+        questCountTxt.text = currentCount + "/" + maxCount;
+        qs.MyQuest.MyQuestGiver.UpdateQuestStatus();
+        qs = null;
+    }
+
+    public void AbandonQuest()
+    {
+        foreach (CollectObjective o in selected.MyCollectObjectives)
+        {
+            InventoryScript.MyInstance.itemCountChangedEvent -= new ItemCountChanged(o.UpdateItemCount);
+           
         }
 
-        questDescription.text = string.Format("{0}\n\n<size=25>{1}</size>\nObjectives:\n<size=25>{2}</size>", title, quest.MyDescription,objectives);
+        foreach (KillObjective o in selected.MyKillObjectives)
+        {
+            GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
+        }
+
+        RemoveQuest(selected.MyQuestScript);
+    }
+
+    public bool HasQuest(Quest quest)
+    {
+        return quests.Exists(x => x.MyTitle == quest.MyTitle);
     }
 }

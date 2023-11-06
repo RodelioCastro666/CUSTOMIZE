@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : Character
 {
@@ -25,6 +26,12 @@ public class Player : Character
     [SerializeField]
     private Stat mana;
 
+    [SerializeField]
+    private Stat xpStat;
+
+    [SerializeField]
+    private TextMeshProUGUI lvlText;
+
     private IInteractable interactable;
 
     private float initiMana = 50;
@@ -47,7 +54,8 @@ public class Player : Character
 
         MyGold = 100;
         spellBook = GetComponent<SpellBook>();
-        
+        xpStat.Initialized(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        lvlText.text = MyLevel.ToString();
         mana.Initialized(initiMana, initiMana);
         base.Start();
     }
@@ -121,7 +129,10 @@ public class Player : Character
 
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GainXp(10);
+        }
 
         if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["UP"]))
         {
@@ -301,6 +312,12 @@ public class Player : Character
         {
             MyInteractable.Interact();
         }
+    }
+
+    public void GainXp(int xp)
+    {
+        xpStat.MyCurrentValue += xp;
+        CombatTextManager.MyInstance.CreateText(transform.position,MyCombatTxtOffset ,xp.ToString(), SCCTYPE.XP, false);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

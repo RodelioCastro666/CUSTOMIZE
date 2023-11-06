@@ -2,18 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestGiver : MonoBehaviour
+public class QuestGiver : NPC
 {
     [SerializeField]
-    private Quest[] quest;
+    private Quest[] quests;
 
     [SerializeField]
-    private QuestLog tmpLog;
+    private Sprite question, questionSilver, exclamation;
+
+    [SerializeField]
+    private SpriteRenderer statusRenderer;
 
 
-    private void Awake()
+    public Quest[] MyQuest { get => quests;}
+
+    private void Start()
     {
-        tmpLog.AcceptQuest(quest[0]);
-       // tmpLog.AcceptQuest(quest[1]);
+        foreach(Quest quest in quests)
+        {
+            quest.MyQuestGiver = this;
+        }
+    }
+
+    public void UpdateQuestStatus()
+    {
+        int count = 0;
+
+        foreach(Quest quest in quests)
+        {
+            if(quest != null)
+            {
+                if(quest.IsComplete && QuestLog.MyInstance.HasQuest(quest))
+                {
+                    statusRenderer.sprite = question;
+                    break;
+                }
+                else if(!QuestLog.MyInstance.HasQuest(quest))
+                {
+                    statusRenderer.sprite = exclamation;
+                    break;
+                }
+                else if(!quest.IsComplete && QuestLog.MyInstance.HasQuest(quest))
+                {
+                    statusRenderer.sprite = questionSilver;
+                    
+                }
+                
+            }
+
+            else
+            {
+                count++;
+                if(count == quests.Length)
+                {
+                    statusRenderer.enabled = false;
+                }
+            }
+        }
     }
 }

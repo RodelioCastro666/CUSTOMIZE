@@ -9,6 +9,9 @@ public class InventoryScript : MonoBehaviour
 {
     public event ItemCountChanged itemCountChangedEvent;
 
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
     private static InventoryScript instance;
 
     public static InventoryScript MyInstance
@@ -42,7 +45,7 @@ public class InventoryScript : MonoBehaviour
 
     public bool CanAddBag
     {
-        get { return bags.Count < 2; }
+        get { return bags.Count < 1; }
     }
 
     public SlotScript FromSlot 
@@ -107,7 +110,7 @@ public class InventoryScript : MonoBehaviour
         {
             if (bag.MyBagScript.AddItem(item))
             {
-               // OnItemCountChanged(item);
+                OnItemCountChanged(item);
                 return true;
             }
         }
@@ -149,12 +152,41 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
+    public Stack<Item> GetItems(string type, int count)
+    {
+        Stack<Item> items = new Stack<Item>();
+
+        foreach (Bag bag in bags)
+        {
+
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyTitle == type)
+                {
+                    foreach(Item item in slot.MyItems)
+                    {
+                        items.Push(item);
+
+                        if(items.Count == count)
+                        {
+                            return items;
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        return items;
+    }
+
     public int GetItemCount(string type)
     {
         int itemCount = 0;
 
         foreach(Bag bag in bags)
         {
+            
             foreach(SlotScript slot in bag.MyBagScript.MySlots)
             {
                 if(!slot.IsEmpty && slot.MyItem.MyTitle == type)
@@ -184,7 +216,7 @@ public class InventoryScript : MonoBehaviour
         return false;
     }
 
-    public void OpenClose()
+    public void OpenCloseBag()
     {
         bool closedBag = bags.Find(x => !x.MyBagScript.IsOpen);
 
@@ -215,6 +247,20 @@ public class InventoryScript : MonoBehaviour
         if(itemCountChangedEvent != null)
         {
             itemCountChangedEvent.Invoke(item);
+        }
+    }
+
+    public void OpenClose()
+    {
+        if (canvasGroup.alpha <= 0)
+        {
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1;
+        }
+        else
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 0;
         }
     }
 }

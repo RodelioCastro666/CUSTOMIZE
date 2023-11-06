@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: -995539112, guid: 38f0a637c60659644bb132b612736248, type: 3}
   stackSize: 0
   title: Gloves
-  quality: 0
+  quality: 2
   price: 3
   armorType: 3
   intellect: 10

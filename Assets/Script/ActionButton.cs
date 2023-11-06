@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,15 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
 
         set
         {
-            MyUseable = value.Peek();
+            if(value.Count > 0)
+            {
+                MyUseable = value.Peek();
+            }
+            else
+            {
+                MyUseable = null;
+            }
+
             useables = value;
 
         }
@@ -68,7 +77,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
             {
                 MyUseable.Use();
             }
-            if(MyUseables != null && MyUseables.Count > 0)
+            else if(MyUseables != null && MyUseables.Count > 0)
             {
                 MyUseables.Peek().Use();
             }

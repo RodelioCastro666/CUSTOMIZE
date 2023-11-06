@@ -37,8 +37,12 @@ public class UiManager : MonoBehaviour
 
     [SerializeField]
     private GameObject toolTip;
+
     [SerializeField]
     private CharacterPanel charPanel;
+
+    [SerializeField]
+    private InventoryScript InventoryScript;
     
 
     private void Awake()
@@ -70,7 +74,7 @@ public class UiManager : MonoBehaviour
         //}
         if (Input.GetKeyDown(KeyCode.B))
         {
-            InventoryScript.MyInstance.OpenClose();
+            InventoryScript.OpenClose();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {

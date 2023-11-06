@@ -14,6 +14,12 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float initiHealth;
 
+    [SerializeField]
+    private string type;
+
+    [SerializeField]
+    float combatTxtOffset;
+
     protected Vector2 direction;
 
     public Transform MyTarget { get; set; }
@@ -26,6 +32,9 @@ public abstract class Character : MonoBehaviour
 
     [SerializeField]
     protected Stat health;
+
+    [SerializeField]
+    private int level;
 
     public Stat MyHealth
     {
@@ -62,6 +71,16 @@ public abstract class Character : MonoBehaviour
             return health.MyCurrentValue > 0;
         }
     }
+
+    public string MyType { get => type; set => type = value; }
+
+
+    public int MyLevel { get => level; set => level = value; }
+
+    public float MyCombatTxtOffset { get => combatTxtOffset; set => combatTxtOffset = value; }
+
+
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -183,13 +202,19 @@ public abstract class Character : MonoBehaviour
         
 
         health.MyCurrentValue -= damage;
-
-        if(health.MyCurrentValue <= 0)
+        CombatTextManager.MyInstance.CreateText(transform.position,MyCombatTxtOffset ,damage.ToString(), SCCTYPE.DAMAGE, false);
+        if (health.MyCurrentValue <= 0)
         {
             Direction = Vector2.zero;
             myRigidbody2D.velocity = Direction;
+            GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
         }
     }
 
+    public void GetHealth(int health)
+    {
+        MyHealth.MyCurrentValue += health;
+        CombatTextManager.MyInstance.CreateText(transform.position, MyCombatTxtOffset ,health.ToString(),SCCTYPE.HEAL, true);
+    }
 }

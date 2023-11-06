@@ -6,7 +6,7 @@ public delegate void HealthChanged(float health);
 
 public delegate void CharacterRemoved();
 
-public class Enemy : NPC
+public class Enemy :Character, IInteractable
 {
     [SerializeField]
     private CanvasGroup healthGroup;
@@ -120,7 +120,7 @@ public class Enemy : NPC
         OnHealthChanged(health.MyCurrentValue);
     }
 
-    public override void Interact()
+    public  void Interact()
     {
         if (!IsAlive)
         {
@@ -128,8 +128,13 @@ public class Enemy : NPC
         }  
     }
 
-    public override void StopInteract()
+    public  void StopInteract()
     {
         LootWindow.MyInstance.Close();
+    }
+
+    public  Transform Select()
+    {
+        return hitBox;
     }
 }

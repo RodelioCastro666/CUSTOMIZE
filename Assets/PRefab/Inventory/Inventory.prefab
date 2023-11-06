@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 48048842967015935}
   - component: {fileID: 4624784640994010563}
   - component: {fileID: 517060203}
+  - component: {fileID: 5436284874857331003}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -59,9 +60,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca803344087ee44d805acd93ff89524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 5436284874857331003}
   items:
   - {fileID: 11400000, guid: 1c44c8389d7836d44aca12a9044bdcc0, type: 2}
+  - {fileID: 11400000, guid: e7dbc7a89538eac49be50090ffe650f3, type: 2}
+  - {fileID: 11400000, guid: ca409e4ff9157e14f9e4a1f07aa446e0, type: 2}
+  - {fileID: 11400000, guid: 58ef2b544140e1d4a8e216f90d5e491e, type: 2}
   - {fileID: 11400000, guid: b0be2eaa1b2dab142ab8c4e3849beb6f, type: 2}
+  - {fileID: 11400000, guid: 0993694ffdc0e5d46b0b24c34a935b48, type: 2}
+  - {fileID: 11400000, guid: 8424524dfc2fb4c4b847c52220ea2a5b, type: 2}
+  - {fileID: 11400000, guid: daa24f30357c29b46b67778387e3f4f7, type: 2}
+  - {fileID: 11400000, guid: b17eed21266adca4699d8d9c4cab25d8, type: 2}
+  - {fileID: 11400000, guid: fedac50e0c769eb46852de71b6025a87, type: 2}
+  - {fileID: 11400000, guid: 88819767119016048aa5a48cff1c9428, type: 2}
   bagButtons:
   - {fileID: 0}
 --- !u!114 &517060203
@@ -77,14 +88,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: -41
+    m_Left: 10
     m_Right: 0
-    m_Top: 406
+    m_Top: 435
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 1683.85, y: 0}
+  m_CellSize: {x: 1601.74, y: 2.89}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!225 &5436284874857331003
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511301202786581681}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : Character, IInteractable
+public class NPC : MonoBehaviour , IInteractable
 {
-    public virtual void DeSelect()
-    {
+    [SerializeField]
+    private Window window;
 
-    }
-
-    public virtual Transform Select()
-    {    
-        return hitBox; 
-    }
+    public bool IsInteracting { get; set; }
+    
 
     public virtual void Interact()
     {
-        Debug.Log("lklkk");
+        if (!IsInteracting)
+        {
+            IsInteracting = true;
+            window.Open(this);
+        }
     }
 
     public virtual void StopInteract()
     {
-        
+        if (IsInteracting)
+        {
+            IsInteracting = false;
+            window.CLose();
+        }
     }
 }

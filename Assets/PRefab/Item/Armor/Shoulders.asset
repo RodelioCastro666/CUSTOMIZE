@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 628996891, guid: 38f0a637c60659644bb132b612736248, type: 3}
   stackSize: 0
   title: Shoulders
-  quality: 0
+  quality: 1
   price: 7
   armorType: 1
   intellect: 10

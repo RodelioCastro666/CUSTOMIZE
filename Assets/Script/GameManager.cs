@@ -3,10 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public delegate void KillConfirmed(Character character);
+
 public class GameManager : MonoBehaviour
 {
+    public event KillConfirmed killConfirmedEvent;
+
     [SerializeField]
     private Player player;
+
+    private static GameManager instance;
+
+    public static GameManager MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<GameManager>();
+            }
+
+            return instance;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -35,5 +54,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    public void OnKillConfirmed(Character character)
+    {
+        if(killConfirmedEvent != null)
+        {
+            killConfirmedEvent(character);
+        }
+    }
 }
