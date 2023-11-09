@@ -755,8 +755,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AstarDebugger, Assembly-CSharp
+      - m_Target: {fileID: 2047727032}
+        m_TargetAssemblyTypeName: AStarDebugger, Assembly-CSharp
         m_MethodName: ShowHide
         m_Mode: 1
         m_Arguments:
@@ -965,7 +965,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1811106463}
         m_TargetAssemblyTypeName: Astar, Assembly-CSharp
         m_MethodName: Algorithm
         m_Mode: 6
@@ -3441,7 +3441,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1811106463}
         m_TargetAssemblyTypeName: Astar, Assembly-CSharp
         m_MethodName: Reset
         m_Mode: 1
@@ -3536,16 +3536,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1404315119}
-  tilemap: {fileID: 1252013333}
+  tileMap: {fileID: 1252013333}
   tile: {fileID: 11400000, guid: 9e34e82c755ed324d9c14ebe42959cb1, type: 2}
-  canvas: {fileID: 0}
-  openColor: {r: 0, g: 0, b: 0, a: 0}
-  closedColor: {r: 0, g: 0, b: 0, a: 0}
-  pathColor: {r: 0, g: 0, b: 0, a: 0}
+  canvas: {fileID: 1789501592}
+  openColor: {r: 0.2980392, g: 0.36497614, b: 0.8980392, a: 1}
+  closedColor: {r: 0.17771445, g: 0.22312842, b: 0.49056602, a: 1}
+  pathColor: {r: 0.52500165, g: 0.16078429, b: 0.5568628, a: 1}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
-  startColor: {r: 0.6415094, g: 0.61303294, b: 0.25660375, a: 1}
+  startColor: {r: 0.5943396, g: 0.57582355, b: 0.35548234, a: 1}
   goalColor: {r: 0.67686635, g: 0.8301887, b: 0.6296903, a: 1}
-  debugTextPrefab: {fileID: 0}
+  debugTextPrefab: {fileID: 942783055784366161, guid: a783b6990ee138d4d9270441fa9322ec, type: 3}
 --- !u!1 &2080943423
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,7 +3630,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1811106463}
         m_TargetAssemblyTypeName: Astar, Assembly-CSharp
         m_MethodName: Algorithm
         m_Mode: 6

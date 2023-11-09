@@ -33,20 +33,25 @@ public class CombatTextManager : MonoBehaviour
         Text sct =  Instantiate(combatTxtPrefab, transform).GetComponent<Text>();
         sct.transform.position = position;
 
-        string operation = string.Empty;
-
+        string before = string.Empty;
+        string after = string.Empty;
         switch (type) 
         {
             case SCCTYPE.DAMAGE:
-                operation += "-";
+                before = "-";
                 sct.color = Color.red;
                 break;
             case SCCTYPE.HEAL:
-                operation += "+";
+                before = "+";
                 sct.color = Color.green;
                 break;
+            case SCCTYPE.XP:
+                before = "+";
+                after = " XP";
+                sct.color = Color.yellow;
+                break;
         }
-        sct.text = operation + text;
+        sct.text = before + text + after;
 
 
         if (crit)

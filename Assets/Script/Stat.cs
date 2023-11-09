@@ -16,7 +16,24 @@ public class Stat : MonoBehaviour
 
     private float currentFill;
 
+    private float overFlow;
+
     public float MyMaxValue { get; set; }
+
+    public bool isFull
+    {
+        get { return content.fillAmount == 1; }
+    }
+
+    public float MyOverFlow
+    {
+        get
+        {
+            float tmp = overFlow;
+            overFlow = 0;
+            return tmp;
+        }
+    }
 
     private float currentValue;
 
@@ -31,6 +48,7 @@ public class Stat : MonoBehaviour
         {
             if (value > MyMaxValue)
             {
+                overFlow = value - MyMaxValue;
                 currentValue = MyMaxValue;
             }
             else if (value < 0)
@@ -79,5 +97,10 @@ public class Stat : MonoBehaviour
     {
         MyMaxValue = maxValue;
         MyCurrentValue = currentValue;
+    }
+
+    public void Reset()
+    {
+        content.fillAmount = 0;
     }
 }

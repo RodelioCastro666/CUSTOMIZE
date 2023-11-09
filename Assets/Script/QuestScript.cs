@@ -28,13 +28,13 @@ public class QuestScript : MonoBehaviour
         if (MyQuest.IsComplete && !markedComplete)
         {
             markedComplete = true;
-            GetComponent<TextMeshProUGUI>().text += "(C)";
-            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (Complete)", MyQuest.MyTitle));
+            GetComponent<TextMeshProUGUI>().text = "[" + MyQuest.MyLevel + "]" + MyQuest.MyTitle + "(C)";
+            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (C)", MyQuest.MyTitle));
         }
         else if (!MyQuest.IsComplete)
         {
             markedComplete = false;
-            GetComponent<TextMeshProUGUI>().text = MyQuest.MyTitle;
+            GetComponent<TextMeshProUGUI>().text = "[" + MyQuest.MyLevel + "]" + MyQuest.MyTitle;
         }
     }
 }

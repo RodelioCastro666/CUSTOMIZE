@@ -29,6 +29,11 @@ public class Quest
 
     public KillObjective[] MyKillObjectives { get => killObjectives; }
 
+    [SerializeField]
+    private int level;
+    [SerializeField]
+    private int xP;
+
     public bool IsComplete
     {
         get
@@ -53,7 +58,10 @@ public class Quest
         }
     }
 
+    public int MyLevel { get => level; set => level = value; }
 
+
+    public int MyXP { get => xP;  }
 }
 
 [System.Serializable]

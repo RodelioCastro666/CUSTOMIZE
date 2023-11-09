@@ -41,9 +41,12 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private CharacterPanel charPanel;
 
+    
+
     [SerializeField]
     private InventoryScript InventoryScript;
-    
+
+    private readonly int enemyLvl;
 
     private void Awake()
     {
@@ -54,10 +57,10 @@ public class UiManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
 
        
-
+       
     }
 
     // Update is called once per frame
@@ -83,7 +86,7 @@ public class UiManager : MonoBehaviour
     }
 
    
-
+    
     //public void OpenCloseMenu()
     //{
     //    keyBindMenu.alpha = keyBindMenu.alpha > 0 ? 0 : 1;

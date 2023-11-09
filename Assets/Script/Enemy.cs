@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public delegate void HealthChanged(float health);
 
@@ -11,6 +12,21 @@ public class Enemy :Character, IInteractable
     [SerializeField]
     private CanvasGroup healthGroup;
 
+    private static Enemy instance;
+
+    public static Enemy MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<Enemy>();
+            }
+
+            return instance;
+        }
+    }
+
     private IState currentState;
 
     public event HealthChanged healthChanged;
@@ -19,6 +35,9 @@ public class Enemy :Character, IInteractable
 
     [SerializeField]
     private float initAggroRange;
+
+    [SerializeField]
+    private TextMeshProUGUI lvlText;
 
     public float MyAggroRange { get; set; }
 
@@ -62,6 +81,8 @@ public class Enemy :Character, IInteractable
         }
 
         base.Update();
+
+        TxtLvl();
     }
 
     [SerializeField]
@@ -72,6 +93,33 @@ public class Enemy :Character, IInteractable
         if (healthChanged != null)
         {
             healthChanged(health);
+        }
+    }
+
+    public void TxtLvl()
+    {
+
+        lvlText.text = MyLevel.ToString();
+
+        if (MyLevel >= Player.MyInstance.MyLevel + 5)
+        {
+            lvlText.color = Color.red;
+        }
+        else if (MyLevel == Player.MyInstance.MyLevel + 3 || MyLevel == Player.MyInstance.MyLevel + 4)
+        {
+            lvlText.color = new Color32(255, 124, 0, 255);
+        }
+        else if (MyLevel >= Player.MyInstance.MyLevel - 2 && MyLevel <= Player.MyInstance.MyLevel + 2)
+        {
+            lvlText.color = Color.yellow;
+        }
+        else if (MyLevel <= Player.MyInstance.MyLevel - 3 && MyLevel > XpManager.CalculateGrayLevel())
+        {
+            lvlText.color = Color.green;
+        }
+        else
+        {
+            lvlText.color = Color.grey;
         }
     }
 

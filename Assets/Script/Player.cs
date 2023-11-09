@@ -39,6 +39,9 @@ public class Player : Character
     [SerializeField]
     private Transform[] exitPoints;
 
+    [SerializeField]
+    private Animator ding;
+
     private int exitIndex = 2;
 
     private SpellBook spellBook;
@@ -131,7 +134,7 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GainXp(10);
+            GainXp(16);
         }
 
         if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["UP"]))
@@ -318,6 +321,28 @@ public class Player : Character
     {
         xpStat.MyCurrentValue += xp;
         CombatTextManager.MyInstance.CreateText(transform.position,MyCombatTxtOffset ,xp.ToString(), SCCTYPE.XP, false);
+
+        if(xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+    }
+
+    private IEnumerator Ding()
+    {
+        while (!xpStat.isFull)
+        {
+            yield return null;
+        }
+
+        MyLevel++;
+        ding.SetTrigger("Ding");
+        lvlText.text = MyLevel.ToString();
+        xpStat.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
+        xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
+        xpStat.MyCurrentValue = xpStat.MyOverFlow;
+        xpStat.Reset();
+            
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

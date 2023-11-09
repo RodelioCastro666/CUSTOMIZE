@@ -52,14 +52,14 @@ public class QuestGiverWindow : Window
             if(quest != null)
             {
                 GameObject go = Instantiate(questPrefab, questArea);
-                go.GetComponent<TextMeshProUGUI>().text = quest.MyTitle;
+                go.GetComponent<TextMeshProUGUI>().text =  "[" + quest.MyLevel + "]" + quest.MyTitle + "<color=#ffbb04>!</color>";
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
                 quests.Add(go);
 
                 if (QuestLog.MyInstance.HasQuest(quest) && quest.IsComplete)
                 {
-                    go.GetComponent<TextMeshProUGUI>().text += "(C)";
+                    go.GetComponent<TextMeshProUGUI>().text += "<color=#ffbb04>?</color>";
                 }
 
                 else if (QuestLog.MyInstance.HasQuest(quest))
@@ -69,6 +69,7 @@ public class QuestGiverWindow : Window
                     c.a = 0.5f;
 
                     go.GetComponent<TextMeshProUGUI>().color = c;
+                    go.GetComponent<TextMeshProUGUI>().text = "<color=#c0c0c0ff>?</color>";
                 }
             }
 
@@ -159,6 +160,8 @@ public class QuestGiverWindow : Window
             {
                 GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
             }
+
+            Player.MyInstance.GainXp(XpManager.CalculateXP(selectedQuest));
 
             QuestLog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
             Back();
