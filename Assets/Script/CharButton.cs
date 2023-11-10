@@ -14,27 +14,27 @@ public class CharButton : MonoBehaviour,  IDropHandler,IPointerDownHandler,IPoin
     [SerializeField]
     private Image icon;
 
-    
+    public Armor MyEquippedArmor { get => equippedArmor; }
 
     public void EquipArmor(Armor armor)
     {
         armor.Remove();
 
-        if(equippedArmor != null)
+        if(MyEquippedArmor != null)
         {
-            if(equippedArmor != armor)
+            if(MyEquippedArmor != armor)
             {
-                armor.MySlot.AddItem(equippedArmor);
+                armor.MySlot.AddItem(MyEquippedArmor);
             }
 
-            UiManager.MyInstance.RefreshToolTip(equippedArmor);
+            UiManager.MyInstance.RefreshToolTip(MyEquippedArmor);
         }
 
         icon.enabled = true;
         icon.sprite = armor.MyIcon;
         icon.color = Color.white;
         this.equippedArmor = armor;
-        this.equippedArmor.MyCharButton = this;
+        this.MyEquippedArmor.MyCharButton = this;
 
 
         if(HandScript.MyInstance.MyMoveable == (armor as IMoveable))
@@ -49,9 +49,9 @@ public class CharButton : MonoBehaviour,  IDropHandler,IPointerDownHandler,IPoin
     {
        if(eventData.button == PointerEventData.InputButton.Left)
         {
-            if(HandScript.MyInstance.MyMoveable == null && equippedArmor != null)
+            if(HandScript.MyInstance.MyMoveable == null && MyEquippedArmor != null)
             {
-                HandScript.MyInstance.TakeMoveable(equippedArmor);
+                HandScript.MyInstance.TakeMoveable(MyEquippedArmor);
                 CharacterPanel.MyInstance.MySelectedButton = this;
                 icon.color = Color.gray;
             }
@@ -77,9 +77,9 @@ public class CharButton : MonoBehaviour,  IDropHandler,IPointerDownHandler,IPoin
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(equippedArmor != null)
+        if(MyEquippedArmor != null)
         {
-            UiManager.MyInstance.ShowToolTip(equippedArmor);
+            UiManager.MyInstance.ShowToolTip(MyEquippedArmor);
         }
        
     }

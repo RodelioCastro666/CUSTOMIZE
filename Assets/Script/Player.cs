@@ -50,6 +50,10 @@ public class Player : Character
 
     public IInteractable MyInteractable { get => interactable; set => interactable = value; }
 
+    public Stat MyXp { get => xpStat; set => xpStat = value; }
+
+    public Stat MyMana { get => mana; set => mana = value; }
+
     private Vector3 min, max;
 
     protected override void Start()
@@ -57,9 +61,9 @@ public class Player : Character
 
         MyGold = 100;
         spellBook = GetComponent<SpellBook>();
-        xpStat.Initialized(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         lvlText.text = MyLevel.ToString();
-        mana.Initialized(initiMana, initiMana);
+        MyMana.Initialize(initiMana, initiMana);
         base.Start();
     }
 
@@ -134,7 +138,7 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GainXp(16);
+            GainXp(600);
         }
 
         if (Input.GetKey(KeyBindManager.MyInstacne.Keybinds["UP"]))
@@ -166,12 +170,12 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.I))
         {
             health.MyCurrentValue -= 10;
-            mana.MyCurrentValue -= 10;
+            MyMana.MyCurrentValue -= 10;
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
             health.MyCurrentValue += 10;
-            mana.MyCurrentValue += 10;
+            MyMana.MyCurrentValue += 10;
         }      
         
     }
@@ -319,10 +323,10 @@ public class Player : Character
 
     public void GainXp(int xp)
     {
-        xpStat.MyCurrentValue += xp;
+        MyXp.MyCurrentValue += xp;
         CombatTextManager.MyInstance.CreateText(transform.position,MyCombatTxtOffset ,xp.ToString(), SCCTYPE.XP, false);
 
-        if(xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        if(MyXp.MyCurrentValue >= MyXp.MyMaxValue)
         {
             StartCoroutine(Ding());
         }
@@ -330,7 +334,7 @@ public class Player : Character
 
     private IEnumerator Ding()
     {
-        while (!xpStat.isFull)
+        while (!MyXp.isFull)
         {
             yield return null;
         }
@@ -338,11 +342,16 @@ public class Player : Character
         MyLevel++;
         ding.SetTrigger("Ding");
         lvlText.text = MyLevel.ToString();
-        xpStat.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
-        xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
-        xpStat.MyCurrentValue = xpStat.MyOverFlow;
-        xpStat.Reset();
-            
+        MyXp.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
+        MyXp.MyMaxValue = Mathf.Floor(MyXp.MyMaxValue);
+        MyXp.MyCurrentValue = MyXp.MyOverFlow;
+        MyXp.Reset();
+
+        if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -364,4 +373,9 @@ public class Player : Character
         }
     }
 
+
+    public void UpdateLevel()
+    {
+        lvlText.text = MyLevel.ToString();
+    }
 }

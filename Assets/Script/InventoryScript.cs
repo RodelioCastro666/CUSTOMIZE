@@ -45,7 +45,7 @@ public class InventoryScript : MonoBehaviour
 
     public bool CanAddBag
     {
-        get { return bags.Count < 1; }
+        get { return MyBags.Count < 1; }
     }
 
     public SlotScript FromSlot 
@@ -61,6 +61,8 @@ public class InventoryScript : MonoBehaviour
             }
         } 
     }
+
+    public List<Bag> MyBags { get => bags; set => bags = value; }
 
     private void Awake()
     {
@@ -106,7 +108,7 @@ public class InventoryScript : MonoBehaviour
     }
     private bool PlaceInEmpty(Item item)
     {
-        foreach(Bag bag in bags)
+        foreach(Bag bag in MyBags)
         {
             if (bag.MyBagScript.AddItem(item))
             {
@@ -122,7 +124,7 @@ public class InventoryScript : MonoBehaviour
     {
         Stack<IUseable> useables = new Stack<IUseable>();
 
-        foreach(Bag bag in bags)
+        foreach(Bag bag in MyBags)
         {
             foreach(SlotScript slot in bag.MyBagScript.MySlots)
             {
@@ -139,6 +141,24 @@ public class InventoryScript : MonoBehaviour
         return useables;
     }
 
+    public IUseable GetUsable(string type)
+    {
+        Stack<IUseable> useables = new Stack<IUseable>();
+
+        foreach (Bag bag in MyBags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyTitle == type)
+                {
+                    return (slot.MyItem as IUseable);
+                }
+            }
+        }
+
+        return null;
+    }
+
     public void AddBag(Bag bag)
     {
         foreach(BagButton bagButton in bagButtons)
@@ -146,17 +166,43 @@ public class InventoryScript : MonoBehaviour
             if(bagButton.MyBag == null)
             {
                 bagButton.MyBag = bag;
-                bags.Add(bag);
+                MyBags.Add(bag);
                 break;
             }
         }
+    }
+
+    public void AddBag(Bag bag, int bagIndex)
+    {
+        bag.SetUpScript();
+        MyBags.Add(bag);
+        bag.MyBagButton = bagButtons[bagIndex];
+        bagButtons[bagIndex].MyBag = bag;
+    }
+
+    public List<SlotScript> GetAllItems()
+    {
+        List<SlotScript> slots = new List<SlotScript>();
+
+        foreach (Bag bag in MyBags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty)
+                {
+                    slots.Add(slot);
+                }
+            }
+        }
+
+        return slots;
     }
 
     public Stack<Item> GetItems(string type, int count)
     {
         Stack<Item> items = new Stack<Item>();
 
-        foreach (Bag bag in bags)
+        foreach (Bag bag in MyBags)
         {
 
             foreach (SlotScript slot in bag.MyBagScript.MySlots)
@@ -184,7 +230,7 @@ public class InventoryScript : MonoBehaviour
     {
         int itemCount = 0;
 
-        foreach(Bag bag in bags)
+        foreach(Bag bag in MyBags)
         {
             
             foreach(SlotScript slot in bag.MyBagScript.MySlots)
@@ -201,7 +247,7 @@ public class InventoryScript : MonoBehaviour
 
     private bool PlaceInStack(Item item)
     {
-        foreach(Bag bag in bags)
+        foreach(Bag bag in MyBags)
         {
             foreach(SlotScript slots in bag.MyBagScript.MySlots)
             {
@@ -216,11 +262,16 @@ public class InventoryScript : MonoBehaviour
         return false;
     }
 
+    public void PlaceInSpecific(Item item, int slotindex, int bagIndex)
+    {
+        bags[bagIndex].MyBagScript.MySlots[slotindex].AddItem(item);
+    }
+
     public void OpenCloseBag()
     {
-        bool closedBag = bags.Find(x => !x.MyBagScript.IsOpen);
+        bool closedBag = MyBags.Find(x => !x.MyBagScript.IsOpen);
 
-        foreach(Bag bag in bags)
+        foreach(Bag bag in MyBags)
         {
             if(bag.MyBagScript.IsOpen != closedBag)
             {

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -2142482835, guid: 38f0a637c60659644bb132b612736248, type: 3}
   stackSize: 0
-  title: Helmet
+  title: HelmetKK
   quality: 3
   price: 4
   armorType: 0

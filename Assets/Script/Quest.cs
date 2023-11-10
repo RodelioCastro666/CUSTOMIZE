@@ -27,7 +27,7 @@ public class Quest
 
     public CollectObjective[] MyCollectObjectives { get => collectObjectives;}
 
-    public KillObjective[] MyKillObjectives { get => killObjectives; }
+    public KillObjective[] MyKillObjectives { get => killObjectives; set => killObjectives = value; }
 
     [SerializeField]
     private int level;

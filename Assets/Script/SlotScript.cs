@@ -30,6 +30,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IDrag
 
     private ObservableStack<Item> items = new ObservableStack<Item>();
 
+    public BagScript MyBag { get; set; }
+
+    public int MyIndex { get; set; }
+
     public bool IsEmpty
     {
         get

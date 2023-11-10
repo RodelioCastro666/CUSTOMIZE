@@ -96,9 +96,12 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
         if(useable is Item)
         {
             MyUseables = InventoryScript.MyInstance.GetUseables(useable);
+           if(InventoryScript.MyInstance.FromSlot != null)
+            {
+                InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
+                InventoryScript.MyInstance.FromSlot = null;
+            }
            
-            InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
-            InventoryScript.MyInstance.FromSlot = null;
         }
         else
         {
@@ -114,13 +117,22 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IDr
 
     public void UpdateVisual(IMoveable moveable)
     {
-        MyIcon.sprite = HandScript.MyInstance.Put().MyIcon;
-      //  MyIcon.sprite = moveable.MyIcon;
+        if (HandScript.MyInstance.MyMoveable != null)
+        {
+            HandScript.MyInstance.Drop();
+        }
+
+        MyIcon.sprite = moveable.MyIcon;
+     
         MyIcon.color = Color.white;
 
         if(count > 1)
         {
             UiManager.MyInstance.UpdateStackSize(this);
+        }
+        else if(MyUseable is Spell)
+        {
+            UiManager.MyInstance.ClearStackCount(this);
         }
     }
 

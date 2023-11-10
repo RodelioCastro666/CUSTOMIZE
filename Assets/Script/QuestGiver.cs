@@ -13,8 +13,35 @@ public class QuestGiver : NPC
     [SerializeField]
     private SpriteRenderer statusRenderer;
 
+    [SerializeField]
+    private int questGiverID;
 
-    public Quest[] MyQuest { get => quests;}
+    private List<string> completedQuest = new List<string>();
+
+    public Quest[] MyQuests { get => quests;}
+
+    public int MyQuestGiverID { get => questGiverID; set => questGiverID = value; }
+
+    public List<string> MyCompletedQuest
+    {
+        get => completedQuest;
+
+        set
+        {
+            completedQuest = value;
+
+            foreach (string title in completedQuest)
+            {
+                for (int i = 0; i < quests.Length; i++)
+                {
+                    if (quests[i] != null && quests[i].MyTitle == title)
+                    {
+                        quests[i] = null;
+                    }
+                }
+            }
+        }
+    }
 
     private void Start()
     {

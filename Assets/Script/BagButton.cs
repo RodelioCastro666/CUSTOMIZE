@@ -11,6 +11,11 @@ public class BagButton : MonoBehaviour,  IPointerClickHandler
     [SerializeField]
     private Sprite full, empty;
 
+    [SerializeField]
+    private int bagIndex;
+
+    public int MyBagIndex { get => bagIndex; set => bagIndex = value; }
+
     public Bag MyBag 
     { 
         get => bag; 

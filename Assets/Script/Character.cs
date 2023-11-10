@@ -85,7 +85,7 @@ public abstract class Character : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        health.Initialized(initiHealth, initiHealth);
+        health.Initialize(initiHealth, initiHealth);
 
         myRigidbody2D = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();

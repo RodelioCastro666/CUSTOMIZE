@@ -47,19 +47,19 @@ public class QuestGiverWindow : Window
         questArea.gameObject.SetActive(true);
         questDescription.SetActive(false);
 
-        foreach (Quest quest in questGiver.MyQuest)
+        foreach (Quest quest in questGiver.MyQuests)
         {
             if(quest != null)
             {
                 GameObject go = Instantiate(questPrefab, questArea);
-                go.GetComponent<TextMeshProUGUI>().text =  "[" + quest.MyLevel + "]" + quest.MyTitle + "<color=#ffbb04>!</color>";
+                go.GetComponent<TextMeshProUGUI>().text =  "[" + quest.MyLevel + "]" + quest.MyTitle + "<color=#ffbb04> !</color>";
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
                 quests.Add(go);
 
                 if (QuestLog.MyInstance.HasQuest(quest) && quest.IsComplete)
                 {
-                    go.GetComponent<TextMeshProUGUI>().text += "<color=#ffbb04>?</color>";
+                    go.GetComponent<TextMeshProUGUI>().text = quest.MyTitle +  "<color=#ffbb04> ?</color>";
                 }
 
                 else if (QuestLog.MyInstance.HasQuest(quest))
@@ -69,7 +69,7 @@ public class QuestGiverWindow : Window
                     c.a = 0.5f;
 
                     go.GetComponent<TextMeshProUGUI>().color = c;
-                    go.GetComponent<TextMeshProUGUI>().text = "<color=#c0c0c0ff>?</color>";
+                    go.GetComponent<TextMeshProUGUI>().text = quest.MyTitle +  "<color=#c0c0c0ff> ?</color>";
                 }
             }
 
@@ -142,11 +142,13 @@ public class QuestGiverWindow : Window
     {
         if (selectedQuest.IsComplete)
         {
-            for(int i = 0; i < questGiver.MyQuest.Length; i++)
+            for(int i = 0; i < questGiver.MyQuests.Length; i++)
             {
-                if(selectedQuest == questGiver.MyQuest[i])
+                if(selectedQuest == questGiver.MyQuests[i])
                 {
-                    questGiver.MyQuest[i] = null;
+                    questGiver.MyCompletedQuest.Add(selectedQuest.MyTitle);
+                    questGiver.MyQuests[i] = null;
+                    selectedQuest.MyQuestGiver.UpdateQuestStatus();
                 }
             }
 

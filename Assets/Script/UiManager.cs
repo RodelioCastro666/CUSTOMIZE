@@ -41,7 +41,8 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     private CharacterPanel charPanel;
 
-    
+    [SerializeField]
+    private CanvasGroup[] menus;
 
     [SerializeField]
     private InventoryScript InventoryScript;
@@ -66,33 +67,81 @@ public class UiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenClose(keyBindMenu);
+            OpenClose(menus[0]);
         }
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    OpenClose(spellBook);
-        //}
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            OpenClose(menus[1]);
+        }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            InventoryScript.OpenClose();
+            InventoryScript.MyInstance.OpenClose();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            charPanel.OpenClose();
+            OpenClose(menus[2]);
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            OpenClose(menus[3]);
+        }
+
+
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    OpenClose(menus[6]);
+        //}
+
+
+
+
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    OpenClose(keyBindMenu);
+        //}
+        ////if (Input.GetKeyDown(KeyCode.P))
+        ////{
+        ////    OpenClose(spellBook);
+        ////}
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    InventoryScript.OpenClose();
+        //}
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    charPanel.OpenClose();
+        //}
     }
 
-   
-    
+
+
     //public void OpenCloseMenu()
     //{
     //    keyBindMenu.alpha = keyBindMenu.alpha > 0 ? 0 : 1;
     //    keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
     //    Time.timeScale = Time.timeScale > 0 ? 0 : 1;
     //}
+
+    public void OpenSingle(CanvasGroup canvasGroup)
+    {
+        foreach (CanvasGroup canvas in menus)
+        {
+            CloseSingle(canvas);
+        }
+
+        canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    public void CloseSingle(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+    }
 
     public void UpdateKeyText(string key, KeyCode code)
     {
@@ -142,6 +191,12 @@ public class UiManager : MonoBehaviour
     public void HideToolTip()
     {
         toolTip.SetActive(false);
+    }
+
+    public void ClearStackCount(IClickable clickable)
+    {
+        clickable.MyStackText.color = new Color(0, 0, 0, 0);
+        clickable.MyIcon.color = Color.white;
     }
 
     public void RefreshToolTip(IDescribable description)

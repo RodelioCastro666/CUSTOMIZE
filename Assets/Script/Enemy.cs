@@ -82,7 +82,7 @@ public class Enemy :Character, IInteractable
 
         base.Update();
 
-        TxtLvl();
+       // TxtLvl();
     }
 
     [SerializeField]
@@ -96,32 +96,32 @@ public class Enemy :Character, IInteractable
         }
     }
 
-    public void TxtLvl()
-    {
+    //public void TxtLvl()
+    //{
 
-        lvlText.text = MyLevel.ToString();
+    //    lvlText.text = MyLevel.ToString();
 
-        if (MyLevel >= Player.MyInstance.MyLevel + 5)
-        {
-            lvlText.color = Color.red;
-        }
-        else if (MyLevel == Player.MyInstance.MyLevel + 3 || MyLevel == Player.MyInstance.MyLevel + 4)
-        {
-            lvlText.color = new Color32(255, 124, 0, 255);
-        }
-        else if (MyLevel >= Player.MyInstance.MyLevel - 2 && MyLevel <= Player.MyInstance.MyLevel + 2)
-        {
-            lvlText.color = Color.yellow;
-        }
-        else if (MyLevel <= Player.MyInstance.MyLevel - 3 && MyLevel > XpManager.CalculateGrayLevel())
-        {
-            lvlText.color = Color.green;
-        }
-        else
-        {
-            lvlText.color = Color.grey;
-        }
-    }
+    //    if (MyLevel >= Player.MyInstance.MyLevel + 5)
+    //    {
+    //        lvlText.color = Color.red;
+    //    }
+    //    else if (MyLevel == Player.MyInstance.MyLevel + 3 || MyLevel == Player.MyInstance.MyLevel + 4)
+    //    {
+    //        lvlText.color = new Color32(255, 124, 0, 255);
+    //    }
+    //    else if (MyLevel >= Player.MyInstance.MyLevel - 2 && MyLevel <= Player.MyInstance.MyLevel + 2)
+    //    {
+    //        lvlText.color = Color.yellow;
+    //    }
+    //    else if (MyLevel <= Player.MyInstance.MyLevel - 3 && MyLevel > XpManager.CalculateGrayLevel())
+    //    {
+    //        lvlText.color = Color.green;
+    //    }
+    //    else
+    //    {
+    //        lvlText.color = Color.grey;
+    //    }
+    //}
 
     public void ChangeState(IState newState)
     {

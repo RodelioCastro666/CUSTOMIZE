@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    private Camera mainCamera;
+
     private static GameManager instance;
 
     public static GameManager MyInstance
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCamera = Camera.main;   
     }
 
     // Update is called once per frame
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
            
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
+            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
 
             if(hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && hit.collider.gameObject.GetComponent<IInteractable>() == player.MyInteractable)
             {

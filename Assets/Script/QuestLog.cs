@@ -49,6 +49,8 @@ public class QuestLog : MonoBehaviour
         }
     }
 
+    public List<Quest> MyQuests { get => quests; set => quests = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,10 +60,7 @@ public class QuestLog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            OpenClose();
-        }
+        
     }
 
     public void UpdateSelected()
@@ -90,7 +89,7 @@ public class QuestLog : MonoBehaviour
 
 
 
-            quests.Add(quest);
+            MyQuests.Add(quest);
 
             GameObject go = Instantiate(questPrefab, questParent);
 
@@ -168,7 +167,7 @@ public class QuestLog : MonoBehaviour
     {
         questScripts.Remove(qs);
         Destroy(qs.gameObject);
-        quests.Remove(qs.MyQuest);
+        MyQuests.Remove(qs.MyQuest);
         questDescription.text = string.Empty;
         selected = null;
         currentCount--;
@@ -195,6 +194,6 @@ public class QuestLog : MonoBehaviour
 
     public bool HasQuest(Quest quest)
     {
-        return quests.Exists(x => x.MyTitle == quest.MyTitle);
+        return MyQuests.Exists(x => x.MyTitle == quest.MyTitle);
     }
 }

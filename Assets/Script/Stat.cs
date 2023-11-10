@@ -93,7 +93,7 @@ public class Stat : MonoBehaviour
 
     }
 
-    public void Initialized(float currentValue, float maxValue)
+    public void Initialize(float currentValue, float maxValue)
     {
         MyMaxValue = maxValue;
         MyCurrentValue = currentValue;

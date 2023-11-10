@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -135,5 +136,12 @@ public class SpellBook : MonoBehaviour
             StopCoroutine(spellRoutine);
             spellRoutine = null;
         }
+    }
+
+    public Spell GetSpell(string spellName)
+    {
+        Spell spell = Array.Find(spells, x => x.MyName == spellName);
+
+        return spell;
     }
 }
