@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour
     private float speed;
 
     [SerializeField]
-    private float initiHealth;
+    protected float initiHealth;
 
     [SerializeField]
     private string type;
@@ -85,7 +85,7 @@ public abstract class Character : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        health.Initialize(initiHealth, initiHealth);
+       
 
         myRigidbody2D = GetComponent<Rigidbody2D>();
         MyAnimator = GetComponent<Animator>();

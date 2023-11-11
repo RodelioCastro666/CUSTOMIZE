@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SaveManager : MonoBehaviour
 {
@@ -21,10 +22,19 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private SavedGame[] saveSlots;
 
+    [SerializeField]
+    private GameObject dialogue;
+
+    [SerializeField]
+    private TextMeshProUGUI dialogueText;
+
+
+    private SavedGame current;
+
     private string action;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //  Debug.Log(Application.persistentDataPath);
 
@@ -34,6 +44,21 @@ public class SaveManager : MonoBehaviour
         foreach(SavedGame saved in saveSlots)
         {
             ShowSavedFiles(saved);
+        }
+
+        
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Load"))
+        {
+            Load(saveSlots[PlayerPrefs.GetInt("Load")]);
+            PlayerPrefs.DeleteKey("Load");
+        }
+        else
+        {
+            Player.MyInstance.SetDefaultValues();
         }
     }
 
@@ -50,22 +75,60 @@ public class SaveManager : MonoBehaviour
         switch (action)
         {
             case "Load":
-                Load(clickButton.GetComponentInParent<SavedGame>());
-              //  dialogueText.text = "Load Game?";
+                dialogueText.text = "Load Game?";
                 break;
             case "Save":
-                Save(clickButton.GetComponentInParent<SavedGame>());
-                //  dialogueText.text = "Save Game?";
+                  dialogueText.text = "Save Game?";
                 break;
             case "Delete":
-                Delete(clickButton.GetComponentInParent<SavedGame>());
-                // dialogueText.text = "Delete Savefile?";
+                 dialogueText.text = "Delete Savefile?";
                 break;
         }
 
-       // current = clickButton.GetComponentInParent<SavedGame>();
-      //  dialogue.SetActive(true);
+        current = clickButton.GetComponentInParent<SavedGame>();
+        dialogue.SetActive(true);
     }
+
+    public void ExecuteAction()
+    {
+        switch (action)
+        {
+            case "Load":
+                LoadScene(current);
+                break;
+            case "Save":
+                Save(current);
+                break;
+            case "Delete":
+                Delete(current);
+                break;
+        }
+        CloseDialogue();
+
+
+    }
+
+    private void LoadScene(SavedGame savedGame)
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat", FileMode.Open);
+            SaveData data = (SaveData)bf.Deserialize(file);
+            file.Close();
+
+            PlayerPrefs.SetInt("Load", savedGame.MyIndex);
+            SceneManager.LoadScene(data.MyScene);
+
+        }
+    }
+
+    public void CloseDialogue()
+    {
+        dialogue.SetActive(false);
+    }
+    
+
     private void Delete(SavedGame savedGame)
     {
         File.Delete(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat");
@@ -112,7 +175,9 @@ public class SaveManager : MonoBehaviour
         catch (System.Exception)
         {
 
-            throw;
+            Delete(savedGame);
+            PlayerPrefs.DeleteKey("Load");
+
         }
     }
 

@@ -59,11 +59,9 @@ public class Player : Character
     protected override void Start()
     {
 
-        MyGold = 100;
+       
         spellBook = GetComponent<SpellBook>();
-        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
-        lvlText.text = MyLevel.ToString();
-        MyMana.Initialize(initiMana, initiMana);
+       
         base.Start();
     }
 
@@ -82,7 +80,15 @@ public class Player : Character
 
     }
 
-    
+    public void SetDefaultValues()
+    {
+        MyGold = 10000;
+        health.Initialize(initiHealth, initiHealth);
+        MyMana.Initialize(initiMana, initiMana);
+        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        lvlText.text = MyLevel.ToString();
+        //initPos = transform.parent.position;
+    }
 
 
 
