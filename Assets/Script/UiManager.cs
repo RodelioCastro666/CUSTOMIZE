@@ -95,8 +95,8 @@ public class UiManager : MonoBehaviour
         //    OpenClose(menus[6]);
         //}
 
-
-
+       
+       
 
 
         //if (Input.GetKeyDown(KeyCode.Escape))
@@ -125,6 +125,16 @@ public class UiManager : MonoBehaviour
     //    keyBindMenu.blocksRaycasts = keyBindMenu.blocksRaycasts == true ? false : true;
     //    Time.timeScale = Time.timeScale > 0 ? 0 : 1;
     //}
+
+    public void OpenMainMenu()
+    {
+        OpenClose(menus[0]);
+    }
+
+    public void CharOpen()
+    {
+        OpenClose(menus[2]);
+    }
 
     public void OpenSingle(CanvasGroup canvasGroup)
     {

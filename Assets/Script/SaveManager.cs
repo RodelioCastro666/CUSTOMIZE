@@ -340,7 +340,7 @@ public class SaveManager : MonoBehaviour
     {
         foreach (ChestData chest in data.MyChestData)
         {
-            Chest c = Array.Find(chests, x => x.name == chest.MyName);
+            Chest c = Instantiate(Array.Find(chests, x => x.name == chest.MyName));
 
             foreach (ItemData itemData in chest.MyItems)
             {
