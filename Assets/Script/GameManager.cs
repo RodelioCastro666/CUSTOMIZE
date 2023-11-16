@@ -48,11 +48,18 @@ public class GameManager : MonoBehaviour
            
             RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
 
-            if(hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && hit.collider.gameObject.GetComponent<IInteractable>() == player.MyInteractable)
+            if(hit.collider != null)
             {
-                player.Interact();
-               
+                IInteractable entity = hit.collider.gameObject.GetComponent<IInteractable>();
+
+                if (hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && player.MyInteractables.Contains(entity)) 
+                {
+                    entity.Interact();
+
+                }
             }
+
+           
         }
     }
 

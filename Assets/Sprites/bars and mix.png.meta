@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 90
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -393,12 +393,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bars and mix_12
+      name: tilesG
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
-        width: 64
+        x: 128
+        y: 224
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -456,12 +456,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bars and mix_15
+      name: tallGrass
       rect:
         serializedVersion: 2
         x: 0
         y: 96
-        width: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -617,10 +617,8 @@ TextureImporter:
       bars and mix_1: 1327175045
       bars and mix_10: -344611514
       bars and mix_11: 119593761
-      bars and mix_12: 1322791025
       bars and mix_13: -792078956
       bars and mix_14: -575575347
-      bars and mix_15: -446653913
       bars and mix_16: 264848473
       bars and mix_17: -1339990187
       bars and mix_18: 1098869832
@@ -635,6 +633,8 @@ TextureImporter:
       bars and mix_7: 1457405681
       bars and mix_8: 387762471
       bars and mix_9: -342267872
+      tallGrass: -446653913
+      tilesG: 1322791025
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -32,9 +32,11 @@ public class Player : Character
     [SerializeField]
     private TextMeshProUGUI lvlText;
 
-    private IInteractable interactable;
+    private List<IInteractable> interactables = new List<IInteractable>();
 
     private float initiMana = 50;
+
+    public Coroutine MyInitRoutine { get; set; }
 
     [SerializeField]
     private Transform[] exitPoints;
@@ -48,7 +50,7 @@ public class Player : Character
 
     public int MyGold { get; set; }
 
-    public IInteractable MyInteractable { get => interactable; set => interactable = value; }
+    public List<IInteractable> MyInteractables { get => interactables; set => interactables = value; }
 
     public Stat MyXp { get => xpStat; set => xpStat = value; }
 
@@ -192,7 +194,13 @@ public class Player : Character
         this.max = max;
     }
 
-   
+    private void StopInit()
+    {
+        if (MyInitRoutine != null)
+        {
+            StopCoroutine(MyInitRoutine);
+        }
+    }
 
     private IEnumerator Attack()
     {
@@ -210,6 +218,8 @@ public class Player : Character
             FireSpell spell = Instantiate(newSpell.MySpellPrefab, transform.position, Quaternion.identity).GetComponent<FireSpell>();
             spell.SetUp(temp, ChooseSpellDirection());
             spell.Initialize(newSpell.MyDamage, transform);
+
+            yield return new WaitForSeconds(1);
 
             StopAttack();
         }
@@ -237,6 +247,8 @@ public class Player : Character
             swordSlash.SetUp(temp, ChooseSlashDirection());
             swordSlash.Initialize(newSpell.MyDamage,transform);
 
+            yield return new WaitForSeconds(0.5f);
+
             StopAttackSword();
 
             
@@ -260,6 +272,8 @@ public class Player : Character
             rasenSpell.SetUp(temp, ChooseSlashDirection());
             rasenSpell.Initialize(newSpell.MyDamage,transform);
 
+            yield return new WaitForSeconds(1);
+
             StopAttackRasen();
 
 
@@ -282,16 +296,85 @@ public class Player : Character
 
     public void CastRasen()
     {
-        StartCoroutine(AttackRasen());
+        
+
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
+        {
+            MyInitRoutine = StartCoroutine(AttackRasen()); 
+        }
     }
 
     public void CastSword()
     {
-        StartCoroutine(AttackSword());
+        
+
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
+        {
+            MyInitRoutine = StartCoroutine(AttackSword()); ;
+        }
+
     }
     public void CastFire()
     {
-        StartCoroutine(Attack());
+
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving)
+        {
+            MyInitRoutine = StartCoroutine(Attack()); 
+        }
+
+    }
+
+    public IEnumerator CraftRoutine(Recipe recipe)
+    {
+        yield return attackRoutine = StartCoroutine(ActionRoutine());
+    }
+
+    private IEnumerator ActionRoutine()
+    {
+        Spell newSpell = spellBook.CastSpell(2);
+
+        IsAttackingRasen = true;
+        IsAttacking = true;
+        IsAttackingSword = true;
+
+        MyAnimator.SetBool("attack2", true);
+        MyAnimator.SetBool("attack", true);
+        MyAnimator.SetBool("attackSword", true);
+
+        yield return new WaitForSeconds(newSpell.MyCastTime);
+
+        StopAttackRasen();
+        StopAttack();
+        StopAttackSword();
+
+
+    }
+
+    public void Gather(string skillName, List<Drop> items)
+    {
+        if (!IsAttacking)
+        {
+            MyInitRoutine = StartCoroutine(GatherRoutine(items));
+        }
+    }
+
+    private IEnumerator GatherRoutine( List<Drop> items)
+    {
+        Spell newSpell = spellBook.CastSpell(3);
+
+        if (!IsAttackingRasen)
+        {
+            IsAttackingRasen = true;
+            MyAnimator.SetBool("attack2", IsAttacking);
+
+            yield return new WaitForSeconds(newSpell.MyCastTime);
+
+
+
+            LootWindow.MyInstance.CreatePages(items);
+
+            StopAttackRasen();
+        }
     }
 
     public virtual void StopAttack()
@@ -312,20 +395,15 @@ public class Player : Character
 
     public virtual void StopAttackRasen()
     {
-        spellBook.StopCasting();
+        
 
         // StopCoroutine(attackRoutine);
         IsAttackingRasen = false;
         MyAnimator.SetBool("attack2", IsAttackingRasen);
+        spellBook.StopCasting();
     }
 
-    public void Interact()
-    {
-        if(MyInteractable != null)
-        {
-            MyInteractable.Interact();
-        }
-    }
+   
 
     public void GainXp(int xp)
     {
@@ -362,20 +440,34 @@ public class Player : Character
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if(collision.tag == "Enemy" || collision.tag == "Interactable")
         {
-            MyInteractable = collision.GetComponent<IInteractable>();
+            IInteractable interactable = collision.GetComponent<IInteractable>();
+
+            if (!MyInteractables.Contains(interactable))
+            {
+                MyInteractables.Add(interactable);
+            }
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.tag == "Enemy" || collision.tag == "Interactable" )
         {
-            if(MyInteractable != null)
+            if(MyInteractables.Count > 0)
             {
-                MyInteractable.StopInteract();
-                MyInteractable = null;
+                IInteractable interactable = MyInteractables.Find(x => x == collision.GetComponent<IInteractable>());
+
+                if(interactable != null)
+                {
+                    interactable.StopInteract();
+                }
+
+                MyInteractables.Remove(interactable);
             }
+
+            
         }
     }
 

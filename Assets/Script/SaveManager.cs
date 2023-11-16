@@ -322,7 +322,7 @@ public class SaveManager : MonoBehaviour
         catch (System.Exception)
         {
 
-            throw;
+            throw;  
         }
     }
 
@@ -344,7 +344,7 @@ public class SaveManager : MonoBehaviour
 
             foreach (ItemData itemData in chest.MyItems)
             {
-                Item item = Array.Find(items, x => x.MyTitle == itemData.MyTitle);
+                Item item =Instantiate(Array.Find(items, x => x.MyTitle == itemData.MyTitle));
                 item.MySlot = c.MyBag.MySlots.Find(x => x.MyIndex == itemData.MySlotIndex);
                 c.MyItems.Add(item);
             }

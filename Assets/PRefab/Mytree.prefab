@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1331788791327917053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4556316827378175626}
+  - component: {fileID: 5819166672808930180}
+  - component: {fileID: 1559163940187897564}
+  m_Layer: 9
+  m_Name: GatherObject
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4556316827378175626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331788791327917053}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.79, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5509955373969856632}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5819166672808930180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331788791327917053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84e4f33a5666b74a8a4338d36fc437d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loot:
+  - item: {fileID: 11400000, guid: 966d17f7483627848af517ed02cd84d5, type: 2}
+    dropChance: 50
+  spriteRenderer: {fileID: 5946776171573162027}
+  defaultSprite: {fileID: 21300000, guid: 2b683dd663bbe4c41aa5a250fe5dc0f1, type: 3}
+  gatherSprite: {fileID: 21300000, guid: 2b683dd663bbe4c41aa5a250fe5dc0f1, type: 3}
+--- !u!58 &1559163940187897564
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331788791327917053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.63
 --- !u!1 &5137791493819108238
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5137791493819108238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.115, y: -1.099, z: 0.10606097}
+  m_LocalPosition: {x: -0.115, y: -0.28, z: 0.10606097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85,11 +152,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6743815106884073247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.6, y: 4.11, z: 0}
+  m_LocalPosition: {x: 4.6, y: 4.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8375010829522309292}
+  - {fileID: 4556316827378175626}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,8 +199,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -482108835
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2b683dd663bbe4c41aa5a250fe5dc0f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -144,7 +212,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!60 &5168025384413457059
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -158,10 +226,10 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.3}
     oldSize: {x: 3.03125, y: 4.1875}
     newSize: {x: 3.03125, y: 4.1875}
     adaptiveTilingThreshold: 0.5
@@ -170,16 +238,25 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.640625, y: -0.21875}
-      - {x: -1.015625, y: 0.21875}
+    - - {x: -0.812896, y: -0.8064983}
+      - {x: -1.4513693, y: 0.05661249}
       - {x: -1.359375, y: 0.625}
-      - {x: -0.984375, y: 1.6875}
-      - {x: -0.296875, y: 1.96875}
-      - {x: 0.828125, y: 2}
+      - {x: -1.8684065, y: 1.6834942}
+      - {x: -1.5379944, y: 1.6319658}
+      - {x: -1.415384, y: 1.885046}
+      - {x: -1.2183368, y: 2.3910398}
+      - {x: -1.028295, y: 2.9028883}
+      - {x: -0.3320217, y: 3.1048841}
+      - {x: 0.9301486, y: 2.9922938}
+      - {x: 1.3309684, y: 2.5387611}
+      - {x: 1.7431412, y: 1.7630793}
+      - {x: 1.7431412, y: 1.7630793}
       - {x: 1.421875, y: 1.15625}
-      - {x: 1.265625, y: 0.25}
+      - {x: 1.8729601, y: 0.63629305}
+      - {x: 1.6709685, y: -0.17561054}
       - {x: 0.828125, y: -0.34375}
-      - {x: 0.046875, y: -0.46875}
+      - {x: 0.92436266, y: -0.72031915}
+      - {x: 0.06714249, y: -0.65115476}
 --- !u!114 &-3927480294523458096
 MonoBehaviour:
   m_ObjectHideFlags: 0

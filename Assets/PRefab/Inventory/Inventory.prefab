@@ -73,6 +73,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b17eed21266adca4699d8d9c4cab25d8, type: 2}
   - {fileID: 11400000, guid: fedac50e0c769eb46852de71b6025a87, type: 2}
   - {fileID: 11400000, guid: 88819767119016048aa5a48cff1c9428, type: 2}
+  - {fileID: 11400000, guid: 9485a22088e442646ae82db42b2215e9, type: 2}
+  - {fileID: 11400000, guid: 25da01b8632d7374a8ff0633f842a271, type: 2}
   bagButtons:
   - {fileID: 0}
 --- !u!114 &517060203
@@ -88,15 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
+    m_Left: -3
     m_Right: 0
-    m_Top: 435
+    m_Top: 624
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 1601.74, y: 2.89}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 1573.98, y: -41.2}
+  m_Spacing: {x: 1, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!225 &5436284874857331003

@@ -52,7 +52,7 @@ public abstract class Character : MonoBehaviour
 
 
 
-    public bool Ismoving
+    public bool IsMoving
     {
         get
         {
@@ -142,7 +142,7 @@ public abstract class Character : MonoBehaviour
                 ActivateLayer("AttackSword");
                 Direction = Vector2.zero;
             }
-            else if (Ismoving)
+            else if (IsMoving)
             {
 
                 ActivateLayer("Walk");

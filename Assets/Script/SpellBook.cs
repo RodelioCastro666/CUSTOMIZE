@@ -74,6 +74,52 @@ public class SpellBook : MonoBehaviour
         return spells[index];
     }
 
+    public void  Cast(ICastable castable)
+    {
+        castingBar.color = castable.MyBarColor;
+
+        castingBar.fillAmount = 0;
+
+        spellName.text = castable.MyTitle;
+
+        icon.sprite = castable.MyIcon;
+
+        spellRoutine = StartCoroutine(ProgressICast(castable));
+
+        fadeRoutine = StartCoroutine(FadeBar());
+
+       
+    }
+
+    private IEnumerator ProgressICast(ICastable castable)
+    {
+        float timePassed = Time.deltaTime;
+
+        float rate = 1.0f / castable.MyCastTime;
+
+        float progress = 0.0f;
+
+        while (progress <= 1.0)
+        {
+            castingBar.fillAmount = Mathf.Lerp(0, 1, progress);
+
+            progress += rate * Time.deltaTime;
+
+            timePassed += Time.deltaTime;
+
+            castTime.text = (castable.MyCastTime - timePassed).ToString("F2");
+
+            if (castable.MyCastTime - timePassed < 0)
+            {
+                castTime.text = "0.00";
+            }
+
+            yield return null;
+        }
+
+        StopCasting();
+    }
+
     private IEnumerator Progress(int index)
     {
         float timePassed = Time.deltaTime;

@@ -91,6 +91,12 @@ public class InventoryScript : MonoBehaviour
             HealthPotion potion = (HealthPotion)Instantiate(items[4]);
             AddItem(potion);
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            GoldNugget nugget = (GoldNugget)Instantiate(items[12]);
+            AddItem(nugget);
+        }
         if (Input.GetKeyDown(KeyCode.H))
         {
             
@@ -104,6 +110,7 @@ public class InventoryScript : MonoBehaviour
             AddItem((Armor)Instantiate(items[8]));
             AddItem((Armor)Instantiate(items[9]));
             AddItem((Armor)Instantiate(items[10]));
+            AddItem((Armor)Instantiate(items[11]));
         }
     }
     private bool PlaceInEmpty(Item item)

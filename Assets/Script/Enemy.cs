@@ -60,8 +60,6 @@ public class Enemy :Character, IInteractable
 
     protected void Awake()
     {
-       
-
         SpriteRenderer sr;
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = true;
@@ -83,7 +81,6 @@ public class Enemy :Character, IInteractable
 
             currentState.Update();
 
-            
         }
 
         base.Update();
@@ -159,10 +156,8 @@ public class Enemy :Character, IInteractable
                 }
             }
 
-           
         }
 
-       
     }
 
     public void SetTarget(Transform target)
@@ -184,12 +179,23 @@ public class Enemy :Character, IInteractable
         OnHealthChanged(health.MyCurrentValue);
     }
 
-    public  void Interact()
+    public void Interact()
     {
         if (!IsAlive)
         {
-            lootTable.ShowLoot();
-        }  
+            List<Drop> drops = new List<Drop>();
+
+            foreach (IInteractable interactable in Player.MyInstance.MyInteractables)
+            {
+                if (interactable is Enemy && !(interactable as Enemy).IsAlive)
+                {
+                    drops.AddRange((interactable as Enemy).lootTable.GetLoot());
+                }
+            }
+
+            LootWindow.MyInstance.CreatePages(drops);
+        }
+
     }
 
     public  void StopInteract()

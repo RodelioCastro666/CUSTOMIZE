@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -146,7 +146,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 160
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -167,7 +167,7 @@ TextureImporter:
         serializedVersion: 2
         x: 64
         y: 160
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -188,7 +188,7 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 160
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -207,9 +207,9 @@ TextureImporter:
       name: ThirdSkill_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 128
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -228,9 +228,9 @@ TextureImporter:
       name: ThirdSkill_4
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 128
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -249,9 +249,9 @@ TextureImporter:
       name: ThirdSkill_5
       rect:
         serializedVersion: 2
-        x: 128
+        x: 142
         y: 128
-        width: 64
+        width: 50
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -272,7 +272,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 96
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -293,7 +293,7 @@ TextureImporter:
         serializedVersion: 2
         x: 64
         y: 96
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -314,7 +314,7 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 96
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -333,9 +333,9 @@ TextureImporter:
       name: ThirdSkill_9
       rect:
         serializedVersion: 2
-        x: 0
+        x: 24
         y: 64
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -354,9 +354,9 @@ TextureImporter:
       name: ThirdSkill_10
       rect:
         serializedVersion: 2
-        x: 64
+        x: 87
         y: 64
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -375,9 +375,9 @@ TextureImporter:
       name: ThirdSkill_11
       rect:
         serializedVersion: 2
-        x: 128
+        x: 152
         y: 64
-        width: 64
+        width: 40
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

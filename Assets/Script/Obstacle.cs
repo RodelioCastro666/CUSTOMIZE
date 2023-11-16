@@ -32,7 +32,7 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
 
         defaultColor = MySpriteRenderer.color;
         fadedColor = defaultColor;
-        fadedColor.a = 0.2f;
+        fadedColor.a = 0.3f;
     }
 
     // Update is called once per frame
@@ -53,7 +53,7 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Ob")
+        if (collision.name == "ObstacleCollider")
         {
             FadeOut();
 
@@ -62,7 +62,7 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "Ob")
+        if (collision.name == "ObstacleCollider")
         {
             FadeIn();
 
